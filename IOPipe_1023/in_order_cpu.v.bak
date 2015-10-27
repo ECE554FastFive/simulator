@@ -171,7 +171,9 @@ EX_stage i_EX_stage(
                     .mem_addr(mem_addr),
                     .jb_addr(jb_addr),
                     .dst_reg(dst_reg),
-                    .changeFlow(changeFlow));
+                    .changeFlow(changeFlow),
+                    .taken(taken),
+                    .not_taken(not_taken));
 
 reg [31:0] store_data;
 reg [31:0] pc_1_EX_MEM; 

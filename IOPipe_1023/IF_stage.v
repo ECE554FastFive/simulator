@@ -17,8 +17,8 @@ wire clk_n;
 wire [31:0] pred_addr;
 wire branch;   //asserted if it is a branch instruction
 
-always @(posedge clk or posedge rst) begin
-    if (rst) 
+always @(posedge clk or negedge rst) begin
+    if (!rst) 
         pc <= 32'h00000000;
     else if (!stall_PC)
         pc <= nxt_pc;

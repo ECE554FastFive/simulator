@@ -13,7 +13,7 @@ reg state, nstate;
 reg clr_cnt, enb_cnt;
 
 always @(posedge clk or negedge rst) begin
-    if (!rst) 
+    if (rst) 
         state <= 0;
     else
         state <= nstate;
@@ -42,8 +42,8 @@ always @(state or strcnt or stpcnt) begin
    endcase
 end
 
-always @(posedge clk or negedge rst) begin
-     if (!rst) 
+always @(posedge clk or posedge rst) begin
+     if (rst) 
          instr_cnt <= 0;
      else if (clr_cnt)
          instr_cnt <= 0;
@@ -51,8 +51,8 @@ always @(posedge clk or negedge rst) begin
          instr_cnt <= instr_cnt + 1;
 end
 
-always @(posedge clk or negedge rst) begin
-     if (!rst) 
+always @(posedge clk or posedge rst) begin
+     if (rst) 
          cycle_cnt <= 0;
      else if (clr_cnt)
          cycle_cnt <= 0;

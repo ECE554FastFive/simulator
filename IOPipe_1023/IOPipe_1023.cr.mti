@@ -1,11 +1,4 @@
-/userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v
-Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
--- Compiling module in_order_cpu_tb
-
-Top level modules:
-	in_order_cpu_tb
-
-} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v
+/userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 -- Compiling module MEM_stage
 
@@ -19,19 +12,19 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 Top level modules:
 	hazard_detect
 
-} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v
-Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
--- Compiling module WB_stage
-
-Top level modules:
-	WB_stage
-
 } {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 -- Compiling module perf_counter
 
 Top level modules:
 	perf_counter
+
+} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
+-- Compiling module WB_stage
+
+Top level modules:
+	WB_stage
 
 } {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/decoder.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/decoder.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
@@ -82,13 +75,6 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 Top level modules:
 	in_order_cpu
 
-} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v
-Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
--- Compiling module ALU
-
-Top level modules:
-	ALU
-
 } {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 -- Compiling module IF_stage
@@ -96,12 +82,12 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 Top level modules:
 	IF_stage
 
-} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v
+} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
--- Compiling module inst_mem
+-- Compiling module ALU
 
 Top level modules:
-	inst_mem
+	ALU
 
 } {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
@@ -109,5 +95,12 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 
 Top level modules:
 	register_file
+
+} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
+-- Compiling module inst_mem
+
+Top level modules:
+	inst_mem
 
 } {} {}}

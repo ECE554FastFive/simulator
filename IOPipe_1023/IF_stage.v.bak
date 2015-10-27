@@ -31,12 +31,12 @@ assign clk_n = ~clk;
 inst_mem i_inst_mem(.clk(clk_n), .addr(pc[9:0]), .dout(instr));
 
 assign branch = (instr[31:26] == 6'b010011) |
-                (instr[31:26] == 6'b010011) |
-                (instr[31:26] == 6'b010011) |
-                (instr[31:26] == 6'b010011) |
-                (instr[31:26] == 6'b010011) |
-                (instr[31:26] == 6'b010011) |
-                (instr[31:26] == 6'b010011);
+                (instr[31:26] == 6'b010100) |
+                (instr[31:26] == 6'b010101) |
+                (instr[31:26] == 6'b010110) |
+                (instr[31:26] == 6'b010111) |
+                (instr[31:26] == 6'b011000) |
+                (instr[31:26] == 6'b011001);
 branch_pred i_branch_pred(
                           .branch(branch),
                           .taken(taken),

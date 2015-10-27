@@ -22,8 +22,8 @@ reg [31:0] instr_IF_ID;   //the IF_ID pipe reg for instr
 reg [31:0] pc_1_IF_ID;   //the IF_ID pipe reg for pc_1
 reg pred_taken_IF_ID;
 //IF/ID pipeline register
-always @(posedge clk or posedge rst) begin
-    if (rst)
+always @(posedge clk or negedge rst) begin
+    if (!rst)
         {instr_IF_ID, pc_1_IF_ID, pred_taken_IF_ID} <= 0;
     else if (flush_ID) 
         {instr_IF_ID, pc_1_IF_ID, pred_taken_IF_ID} <= 0; 
@@ -100,8 +100,8 @@ reg pred_taken_ID_EX;
 
 reg [31:0] rs_data_ID_EX, rt_data_ID_EX;
 //ID/EX pipeline for register data
-always @(posedge clk or posedge rst) begin
-    if (rst) begin
+always @(posedge clk or negedge rst) begin
+    if (!rst) begin
         {rs_data_ID_EX, rt_data_ID_EX} <= 0;
     end
     else begin
@@ -110,8 +110,8 @@ always @(posedge clk or posedge rst) begin
 end
 
 //ID/EX pipeline for control signals
-always @(posedge clk or posedge rst) begin
-    if (rst) begin
+always @(posedge clk or negedge rst) begin
+    if (!rst) begin
         {writeRd_ID_EX, ldic_ID_EX, isSignEx_ID_EX, immed_ID_EX} <= 0;
         {alu_ctrl0_ID_EX, alu_ctrl1_ID_EX, alu_ctrl2_ID_EX, alu_ctrl3_ID_EX} <= 0;
         {isJump_ID_EX, isJR_ID_EX} <= 0;
@@ -188,8 +188,8 @@ reg strcnt_EX_MEM, stpcnt_EX_MEM;
 reg inc_instr_EX_MEM;
 
 //EX_MEM pipeline
-always @(posedge clk or posedge rst) begin
-    if (rst) begin 
+always @(posedge clk or negedge rst) begin
+    if (!rst) begin 
         {store_data, pc_1_EX_MEM, alu_result_EX_MEM, mem_addr_EX_MEM, dst_reg_EX_MEM} <= 0;   //data
         {mem_ren_EX_MEM, mem_wen_EX_MEM} <= 0;          //control for MEM stage
         {lw_EX_MEM, link_EX_MEM, reg_wen_EX_MEM} <= 0;   //control for WB stage
@@ -240,8 +240,8 @@ reg strcnt_MEM_WB, stpcnt_MEM_WB;
 reg inc_instr_MEM_WB;
 
 //MEM_WB pipeline
-always @(posedge clk or posedge rst) begin
-    if (rst) begin
+always @(posedge clk or negedge rst) begin
+    if (!rst) begin
         {pc_1_MEM_WB, alu_result_MEM_WB, dst_reg_MEM_WB} <= 0;
         {lw_MEM_WB, link_MEM_WB, reg_wen_WB} <= 0;
         {strcnt_MEM_WB, stpcnt_MEM_WB} <= 0;
