@@ -16,7 +16,7 @@ always @(posedge clk) begin
        mem[waddr] <= din;
 end
 
-assign dout0 = (raddr0 == waddr) ? din : mem[raddr0];
-assign dout1 = (raddr1 == waddr) ? din : mem[raddr1];
+assign dout0 = ((raddr0 == waddr) && we) ? din : mem[raddr0];
+assign dout1 = ((raddr1 == waddr) && we) ? din : mem[raddr1];
 
 endmodule

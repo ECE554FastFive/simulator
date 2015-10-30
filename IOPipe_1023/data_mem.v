@@ -27,5 +27,8 @@ module data_mem(clk, en, we, wdata, addr, rdata);
 			mem[addr] <= wdata;
 	end
 
+	initial begin
+		$readmemh("../FastFiveSim/BranchData", mem);
+	end
 
 endmodule

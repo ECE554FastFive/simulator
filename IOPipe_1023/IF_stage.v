@@ -3,7 +3,7 @@ module IF_stage(
     input changeFlow,
     input [31:0] jb_addr,
     input stall_PC,
-    input taken, not_taken,   //branch result, from EX stage
+    input taken, not_taken,   //branch result, from EX stage   
     output [31:0] instr,
     output [31:0] pc_1,
     output pred_taken

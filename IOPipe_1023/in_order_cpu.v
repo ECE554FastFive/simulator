@@ -264,5 +264,5 @@ WB_stage i_WB_stage(
                     .wb_addr(waddr_WB));
 
 perf_counter i_perf_counter(.strcnt(strcnt_MEM_WB), .stpcnt(stpcnt_MEM_WB), .clk(clk), .rst(rst), .inc_instr(inc_instr_MEM_WB),
-                            .instr_cnt(instr_cnt), .cycle_cnt(cycle_cnt));
+                           .instr_cnt(instr_cnt), .cycle_cnt(cycle_cnt));
 endmodule
