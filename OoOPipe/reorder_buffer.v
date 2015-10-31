@@ -13,14 +13,18 @@ module reorder_buffer(
     input rst, clk,
     input isDispatch, //serve as the write enable of FIFO
     input MemOp,   //
+    input RegDest,    //stored for roll back, if it is 1, MT and FL need to be restored
     input [5:0] PR_old_DP, //from map table, the previous PR#
     input [5:0] PR_new_DP,
-    input [4:0] rd_DP, //architectural destination register
+    input [4:0] rd_DP, //architectural destinatioMn register
+    input PR_old_valid,
 
     input complete,    //from complete stage, if there is intruction completes
     input [3:0] rob_number,  //from the complete stage, used to set complete bit
     input [31:0] jb_addr,    //from complete stage
     input changeFlow,   //asserted if branch-misprediction or jump, from complete, start the state machine
+
+    input hazard_stall,   //stall because of structure hazard, won't allocate new entry
 
     output [5:0] PR_old_RT,  //PR_old to be retired
     output retire_reg,  //read enable signal of FIFO
@@ -28,7 +32,9 @@ module reorder_buffer(
     output [3:0] retire_rob,   //for load/store queue, indicate which ROB entry is retired
     output full, empty,   
 
+    output RegDest_out,
     output [5:0] PR_old_flush,
+    output old_valid_out,
     output [5:0] PR_new_flush,
     output [4:0] rd_flush,
     output [3:0] out_rob_num,  //for recovery, provide the current ROB number for FL, MT, RS
@@ -38,8 +44,7 @@ module reorder_buffer(
     output reg stall_recover  //before the recover, pointer= tail, stall the pipeline
 );
 
-reg [17:0] rob [15:0];  //[17]: MemOp, [16:12]rd, [11:6] t_old, [5:0] t_new
-//[42:11]: branch/jump address [10:6]: a_rd, [5:0]: T_old, 
+reg [19:0] rob [15:0];  //[19]: RegDest, (whether bet PR back to MT and FL)[18]: PR_old_valid, [17]: MemOp, [16:12]rd, [11:6] t_old, [5:0] t_new
 reg [15:0] complete_array;
 
 
@@ -47,12 +52,12 @@ reg [15:0] complete_array;
 /////////////////////////////////////////////Synch FIFO structure///////////////////////////////////////////
 reg [3:0] head, tail;
 reg dec_tail;  //for recovery
-reg [17:0] retire_entry; 
+reg [19:0] retire_entry; 
 
 wire read, write;
 //no read or write of ROB during recovery
-assign write = isDispatch && !full && !recover;
-assign read = retire_reg && !empty && !recover && !stall_recover;
+assign write = isDispatch && !full && !recover && !hazard_stall;
+assign read = retire_reg && !empty && !recover && !stall_recover && !hazard_stall;
 //head logic
 always @(posedge clk or negedge rst) begin
     if (!rst) begin
@@ -78,7 +83,7 @@ always @(posedge clk or negedge rst) begin
         tail <= tail - 1;   //when decreasing tail, the ROB will not accept new instructions
     else if (write) begin
         tail <= tail + 1;
-        rob[tail] <= {MemOp, rd_DP, PR_old_DP, PR_new_DP};
+        rob[tail] <= {RegDest, PR_old_valid, MemOp, rd_DP, PR_old_DP, PR_new_DP};
         complete_array[tail] <= 0;   //reset complete bit when allocate a new entry
     end
 end
@@ -183,5 +188,7 @@ end
 assign rd_flush = rob[tail][16:12];
 assign PR_old_flush = rob[tail][11:6];
 assign PR_new_flush = rob[tail][5:0];
+assign old_valid_out = rob[tail][18];
+assign RegDest_out = rob[tail][19];
 //out_rob_tail assigned before, since it is used both in recovery and normal dispatch
 endmodule
