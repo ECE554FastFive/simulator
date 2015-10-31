@@ -12,13 +12,6 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 Top level modules:
 	hazard_detect
 
-} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v
-Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
--- Compiling module perf_counter
-
-Top level modules:
-	perf_counter
-
 } {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 -- Compiling module WB_stage
@@ -75,19 +68,19 @@ Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 Top level modules:
 	in_order_cpu
 
-} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v
-Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
--- Compiling module IF_stage
-
-Top level modules:
-	IF_stage
-
 } {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
 -- Compiling module ALU
 
 Top level modules:
 	ALU
+
+} {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014
+-- Compiling module IF_stage
+
+Top level modules:
+	IF_stage
 
 } {} {}} /userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v {1 {vlog -work work -vopt -stats=none /userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  2 2014

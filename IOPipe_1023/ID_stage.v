@@ -16,7 +16,7 @@ module ID_stage(
     //contorl signals for WB stage
     output lw, link, reg_wen,
     //special control signals
-    output halt, strcnt, stpcnt,
+    output str_ccnt, str_icnt, stp_cnt,
     output inc_instr  //to performance counter, increase the instruction count
 );
 
@@ -50,9 +50,9 @@ decoder i_decoder(
                   .lw(lw),
                   .link(link),
                   .reg_wen(reg_wen),
-                  .strcnt(strcnt),
-                  .stpcnt(stpcnt),
-                  .halt(halt),
+                  .str_ccnt(str_ccnt),
+                  .str_icnt(str_icnt),
+                  .stp_cnt(stp_cnt),
                   .inc_instr(inc_instr));
 
 

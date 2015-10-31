@@ -15,6 +15,7 @@ module inst_mem(clk, addr, dout);
 	
 	initial begin
 		$readmemh("../FastFiveSim/BranchInst", mem);
+                //$readmemh("jb_test01_machine.txt", mem);
 	end
 	
 	always@(posedge clk) begin

@@ -21,10 +21,10 @@ module decoder(
     output reg lw,
     output reg link,
     output reg reg_wen,
-    output reg strcnt,
-    output reg stpcnt,
-    output reg halt,
-    output reg inc_instr
+    output reg inc_instr,
+    output reg str_ccnt,
+    output reg str_icnt,
+    output reg stp_cnt
  );
 localparam NOP = 6'b000000;
 localparam ADD = 6'b000001;
@@ -89,10 +89,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 0;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         ADD: begin
             writeRd = 1;
@@ -112,10 +112,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         ADDI: begin
             writeRd = 0;
@@ -135,10 +135,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         SUB: begin
             writeRd = 1;
@@ -158,10 +158,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         LUI: begin
             writeRd = 0;
@@ -181,10 +181,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         MOV: begin
             writeRd = 0;
@@ -204,10 +204,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         SLL: begin
             writeRd = 1;
@@ -227,10 +227,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         SRA: begin
             writeRd = 1;
@@ -250,10 +250,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         SRL: begin
             writeRd = 1;
@@ -273,10 +273,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         AND: begin
             writeRd = 1;
@@ -296,10 +296,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         ANDI: begin
             writeRd = 0;
@@ -319,10 +319,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         NOT: begin
             writeRd = 0;
@@ -342,10 +342,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         OR: begin
             writeRd = 1;
@@ -365,10 +365,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         ORI: begin
             writeRd = 0;
@@ -388,10 +388,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         XOR: begin
             writeRd = 1;
@@ -411,10 +411,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         XORI: begin
             writeRd = 0;
@@ -434,10 +434,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         LW: begin
             writeRd = 0;
@@ -457,10 +457,10 @@ always @(ctrl_codes) begin
              lw = 1;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         SW: begin
             writeRd = 0;
@@ -480,10 +480,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         B: begin
             writeRd = 0;
@@ -503,10 +503,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         BEQ: begin
             writeRd = 0;
@@ -526,10 +526,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         BGT: begin
             writeRd = 0;
@@ -549,10 +549,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         BGE: begin
             writeRd = 0;
@@ -572,10 +572,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         BLE: begin
             writeRd = 0;
@@ -595,10 +595,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         BLT: begin
             writeRd = 0;
@@ -618,10 +618,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         BNE: begin
             writeRd = 0;
@@ -641,10 +641,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         J: begin
             writeRd = 0;
@@ -664,10 +664,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         JAL: begin
             writeRd = 0;
@@ -687,10 +687,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 1;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         JALR: begin
             writeRd = 0;
@@ -710,10 +710,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 1;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         JR: begin
             writeRd = 0;
@@ -733,10 +733,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         STRCNT: begin
             writeRd = 0;
@@ -756,10 +756,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 1;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 1;
+             str_icnt = 1;
+             stp_cnt = 0;
          end
         STPCNT: begin
             writeRd = 0;
@@ -779,10 +779,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 1;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 1;
          end
         LDCC: begin
             writeRd = 0;
@@ -802,10 +802,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         LDIC: begin
             writeRd = 0;
@@ -825,10 +825,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         TX: begin
             writeRd = 0;
@@ -848,10 +848,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         HALT: begin
             writeRd = 0;
@@ -871,10 +871,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 1;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         ADDB: begin
             writeRd = 1;
@@ -894,10 +894,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         ADDBI: begin
             writeRd = 0;
@@ -917,10 +917,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         SUBB: begin
             writeRd = 1;
@@ -940,10 +940,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         SUBBI: begin
             writeRd = 0;
@@ -963,10 +963,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 1;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 1;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
         default: begin
             writeRd = 0;
@@ -986,10 +986,10 @@ always @(ctrl_codes) begin
              lw = 0;
              link = 0;
              reg_wen = 0;
-             strcnt = 0;
-             stpcnt = 0;
-             halt = 0;
              inc_instr = 0;
+             str_ccnt = 0;
+             str_icnt = 0;
+             stp_cnt = 0;
          end
     endcase
 end

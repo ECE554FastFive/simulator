@@ -12,9 +12,9 @@
 # //  FURTHERMORE, THIS INFORMATION IS PROHIBITED FROM DISCLOSURE UNDER
 # //  THE TRADE SECRETS ACT, 18 U.S.C. SECTION 1905.
 # //
-# Loading project OoOPipe_1024
-# reading /cae/apps/data/mentor-2015/modeltech/linux_x86_64/../modelsim.ini
 # Loading project IOPipe_1023
+# reading /cae/apps/data/mentor-2015/modeltech/linux_x86_64/../modelsim.ini
+# Loading project IOPipe_1028
 # Compile of ALU.v was successful.
 # Compile of branch_gen.v was successful.
 # Compile of branch_pred.v was successful.
@@ -45,76 +45,172 @@
 # Compile of in_order_cpu_tb.v was successful.
 # Compile of inst_mem.v was successful.
 # Compile of MEM_stage.v was successful.
-# Compile of perf_counter.v was successful.
 # Compile of register_file.v was successful.
 # Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v failed with 1 errors.
+# 16 compiles, 1 failed with 1 error.
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v failed with 1 errors.
+# 16 compiles, 1 failed with 1 error.
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v failed with 1 errors.
+# 16 compiles, 1 failed with 1 error.
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
 # 16 compiles, 0 failed with no errors.
-vsim -novopt work.in_order_cpu_tb
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+vsim -novopt work.perf_cnt_tb
 # vsim 
-# Start time: 17:24:14 on Oct 27,2015
+# Start time: 23:07:48 on Oct 29,2015
 # ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.in_order_cpu_tb
-# Loading work.in_order_cpu_tb
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.in_order_cpu
-# Loading work.in_order_cpu
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.IF_stage
-# Loading work.IF_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.inst_mem
-# Loading work.inst_mem
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.branch_pred
-# Loading work.branch_pred
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.ID_stage
-# Loading work.ID_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.register_file
-# Loading work.register_file
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.decoder
-# Loading work.decoder
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.EX_stage
-# Loading work.EX_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.ALU
-# Loading work.ALU
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.branch_gen
-# Loading work.branch_gen
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.hazard_detect
-# Loading work.hazard_detect
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.MEM_stage
-# Loading work.MEM_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.data_mem
-# Loading work.data_mem
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.WB_stage
-# Loading work.WB_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.perf_counter
-# Loading work.perf_counter
-# ** Warning: (vsim-3017) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Too few port connections. Expected 5, found 2.
-#    Time: 0 ns  Iteration: 0  Instance: /in_order_cpu_tb/i_in_order_cpu File: /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu.v
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_en'.
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_add'.
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_data'.
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt_tb
+# Loading work.perf_cnt_tb
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt
+# Loading work.perf_cnt
 add wave  \
-sim:/in_order_cpu_tb/i_in_order_cpu/i_ID_stage/i_register_file/mem
-add wave  \
-sim:/in_order_cpu_tb/i_in_order_cpu/clk \
-sim:/in_order_cpu_tb/i_in_order_cpu/rst
+sim:/perf_cnt_tb/inc_instr \
+sim:/perf_cnt_tb/clk \
+sim:/perf_cnt_tb/rst \
+sim:/perf_cnt_tb/str_icnt \
+sim:/perf_cnt_tb/str_ccnt \
+sim:/perf_cnt_tb/stp_cnt \
+sim:/perf_cnt_tb/instr_cnt \
+sim:/perf_cnt_tb/cycle_cnt
 run -all
-# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(13)
-#    Time: 600 ns  Iteration: 1  Instance: /in_order_cpu_tb
-# Break in Module in_order_cpu_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v line 13
-add wave  \
-sim:/in_order_cpu_tb/i_in_order_cpu/i_IF_stage/pc \
-sim:/in_order_cpu_tb/i_in_order_cpu/i_IF_stage/nxt_pc
-add wave  \
-sim:/in_order_cpu_tb/i_in_order_cpu/i_IF_stage/instr
-restart
-# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
-# ** Warning: (vsim-3017) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Too few port connections. Expected 5, found 2.
-#    Time: 0 ns  Iteration: 0  Instance: /in_order_cpu_tb/i_in_order_cpu File: /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu.v
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_en'.
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_add'.
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_data'.
-run -all
-# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(13)
-#    Time: 600 ns  Iteration: 1  Instance: /in_order_cpu_tb
-# Break in Module in_order_cpu_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v line 13
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(35)
+#    Time: 195 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 35
 # Compile of ALU.v was successful.
 # Compile of branch_gen.v was successful.
 # Compile of branch_pred.v was successful.
@@ -128,51 +224,206 @@ run -all
 # Compile of in_order_cpu_tb.v was successful.
 # Compile of inst_mem.v was successful.
 # Compile of MEM_stage.v was successful.
-# Compile of perf_counter.v was successful.
 # Compile of register_file.v was successful.
 # Compile of WB_stage.v was successful.
-# 16 compiles, 0 failed with no errors.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
 restart
 # ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.in_order_cpu_tb
-# Loading work.in_order_cpu_tb
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.in_order_cpu
-# Loading work.in_order_cpu
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.IF_stage
-# Loading work.IF_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.inst_mem
-# Loading work.inst_mem
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.branch_pred
-# Loading work.branch_pred
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.ID_stage
-# Loading work.ID_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.register_file
-# Loading work.register_file
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.decoder
-# Loading work.decoder
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.EX_stage
-# Loading work.EX_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.ALU
-# Loading work.ALU
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.branch_gen
-# Loading work.branch_gen
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.hazard_detect
-# Loading work.hazard_detect
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.MEM_stage
-# Loading work.MEM_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.data_mem
-# Loading work.data_mem
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.WB_stage
-# Loading work.WB_stage
-# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1023/work.perf_counter
-# Loading work.perf_counter
-# ** Warning: (vsim-3017) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Too few port connections. Expected 5, found 2.
-#    Time: 0 ns  Iteration: 0  Instance: /in_order_cpu_tb/i_in_order_cpu File: /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu.v
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_en'.
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_add'.
-# ** Warning: (vsim-3722) /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(6): [TFMPC] - Missing connection for port 'spart_wrt_data'.
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt_tb
+# Loading work.perf_cnt_tb
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt
+# Loading work.perf_cnt
 run -all
-# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v(13)
-#    Time: 600 ns  Iteration: 1  Instance: /in_order_cpu_tb
-# Break in Module in_order_cpu_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v line 13
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(35)
+#    Time: 195 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 35
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt_tb
+# Loading work.perf_cnt_tb
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt
+# Loading work.perf_cnt
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(39)
+#    Time: 215 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 39
+add wave  \
+sim:/perf_cnt_tb/i_perf_cnt/enb_ccnt \
+sim:/perf_cnt_tb/i_perf_cnt/enb_icnt
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(39)
+#    Time: 215 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 39
+add wave  \
+sim:/perf_cnt_tb/i_perf_cnt/clr_ccnt \
+sim:/perf_cnt_tb/i_perf_cnt/clr_icnt
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(39)
+#    Time: 215 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 39
+add wave  \
+sim:/perf_cnt_tb/i_perf_cnt/state_c \
+sim:/perf_cnt_tb/i_perf_cnt/nstate_c \
+sim:/perf_cnt_tb/i_perf_cnt/state_i \
+sim:/perf_cnt_tb/i_perf_cnt/nstate_i
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(39)
+#    Time: 215 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 39
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt_tb
+# Loading work.perf_cnt_tb
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt
+# Loading work.perf_cnt
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(39)
+#    Time: 215 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 39
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt_tb
+# Loading work.perf_cnt_tb
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt
+# Loading work.perf_cnt
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(41)
+#    Time: 225 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 41
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt_tb
+# Loading work.perf_cnt_tb
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt
+# Loading work.perf_cnt
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(45)
+#    Time: 275 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 45
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
+restart
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt_tb
+# Loading work.perf_cnt_tb
+# Refreshing /userspace/y/yaos/ECE554/final_project/IOPipe_1028/work.perf_cnt
+# Loading work.perf_cnt
+run -all
+# ** Note: $stop    : /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v(45)
+#    Time: 255 ns  Iteration: 1  Instance: /perf_cnt_tb
+# Break in Module perf_cnt_tb at /userspace/y/yaos/ECE554/final_project/IOPipe_1028/perf_cnt_tb.v line 45
+# Compile of ALU.v was successful.
+# Compile of branch_gen.v was successful.
+# Compile of branch_pred.v was successful.
+# Compile of data_mem.v was successful.
+# Compile of decoder.v was successful.
+# Compile of EX_stage.v was successful.
+# Compile of hazard_detect.v was successful.
+# Compile of ID_stage.v was successful.
+# Compile of IF_stage.v was successful.
+# Compile of in_order_cpu.v was successful.
+# Compile of in_order_cpu_tb.v was successful.
+# Compile of inst_mem.v was successful.
+# Compile of MEM_stage.v was successful.
+# Compile of register_file.v was successful.
+# Compile of WB_stage.v was successful.
+# Compile of perf_cnt.v was successful.
+# Compile of perf_cnt_tb.v was successful.
+# 17 compiles, 0 failed with no errors.
 quit -sim
