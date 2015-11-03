@@ -328,11 +328,11 @@ while(<>){				# opens and reads input arguments as files line by line
 			my $imm = $ops[1]; $imm =~ s/^\s+|\s+$//g;
 			die "ERROR: invalid data label" if (!exists($data_table{$imm})); #check if label is valid	
 			my $addr = dec2bin($data_table{$imm}, 32);
-			$line = '000010'.'00000'.dec2bin($rs, 5).substr($addr, 8, 16);	#addi rs, r0, addr (lower 16)
-			my $line2 = '000100'.('0' x 5).dec2bin($rs, 5).substr($addr, 0, 16);	#lui rs, addr (upper 16)
-			print $fh '@'.sprintf('%03x',$instrcount).' '.bin2hex($line)." //pseudo addi \$r$rs, \$r0, $imm (lower 16)\n";
+			$line = '000100'.('0' x 5).dec2bin($rs, 5).substr($addr, 0, 16);	#lui rs, addr (upper 16)
+			my $line2 = '000010'.dec2bin($rs, 5).dec2bin($rs, 5).substr($addr, 8, 16);	#ori rs, rs, addr (lower 16)
+			print $fh '@'.sprintf('%03x',$instrcount).' '.bin2hex($line)." //pseudo lui \$r$rs, $imm (upper 16)\n";
 			$instrcount += ADDR_PER_INSTR;
-			print $fh '@'.sprintf('%03x',$instrcount).' '.bin2hex($line2)." //pseudo lui \$r$rs, $imm (upper 16)\n";
+			print $fh '@'.sprintf('%03x',$instrcount).' '.bin2hex($line2)." //pseudo ori \$r$rs, \$r$rs, $imm (lower 16)\n";
 			$instrcount += ADDR_PER_INSTR;
 			next;	#continue (because special case print)
 		}
