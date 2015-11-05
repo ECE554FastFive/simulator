@@ -2,11 +2,11 @@
 //will consider this later
 module free_list_new(
     input [5:0] PR_old,   //the previous physical register that needs to be freed when current instruction retires
+    input RegDest_retire,
     input retire_reg,  //from retire stage, if there is instruction retire at this cycle, assert retire_reg
     input RegDest,     //from D stage, to see if current instruction need to get a new physical register
 
     input clk, rst,
-    input stall_recover,  //stop allocate new dest PR, stop adding new free PR
     input hazard_stall,    //stall for any events such as ROB full, RS full, etc.
     input recover,
 
@@ -21,8 +21,8 @@ reg [5:0] mem [0:63];
 reg [5:0] head, tail;  //read from head, write to tail + 1
 wire write, read;
 
-assign write = ((retire_reg && ~stall_recover) || recover) && ~hazard_stall;   //just to make it more readable
-assign read = RegDest && ~stall_recover && ~recover && ~empty && ~hazard_stall;  //no need to detect full since the FIFO have 64 entries, will never be full
+assign write = (retire_reg || recover) && ~hazard_stall;   //just to make it more readable
+assign read = RegDest && ~recover && ~empty && ~hazard_stall;  //no need to detect full since the FIFO have 64 entries, will never be full
 
 reg [5:0] counter;
 //counter recording full or empty status
@@ -44,7 +44,7 @@ always @(posedge clk or negedge rst) begin
         tail <= 6'h20;           //next write will write to mem[tail]
     end
     else begin
-        if ((write && recover && RegDest_ROB) || (write && !recover))      
+        if ((write && recover && RegDest_ROB) || (write && !recover && RegDest_retire))      
             tail <= tail + 1;
         if (read)
             head <= head + 1;   
@@ -65,7 +65,7 @@ always @(posedge clk or negedge rst) begin
     end
     else if (write && recover && RegDest_ROB) 
         mem[tail] <= PR_new_flush;
-    else if (write && !recover) 
+    else if (write && !recover && RegDest_retire) 
         mem[tail] <= PR_old;
 end
 
