@@ -1,6 +1,7 @@
 module ID_stage(
     input [31:0] instr,
     input clk,
+    input rst,
     input [31:0] wdata,
     input [4:0] waddr,
     input reg_wen_WB,   
@@ -16,7 +17,7 @@ module ID_stage(
     //contorl signals for WB stage
     output lw, link, reg_wen,
     //special control signals
-    output halt, strcnt, stpcnt,
+    output str_ccnt, str_icnt, stp_cnt,
     output inc_instr  //to performance counter, increase the instruction count
 );
 
@@ -28,6 +29,7 @@ register_file i_register_file(
                               .waddr(waddr),
                               .din(wdata),
                               .clk(clk),
+			      .rst(rst),
                               .dout0(rs_data),
                               .dout1(rt_data));
 
@@ -50,9 +52,9 @@ decoder i_decoder(
                   .lw(lw),
                   .link(link),
                   .reg_wen(reg_wen),
-                  .strcnt(strcnt),
-                  .stpcnt(stpcnt),
-                  .halt(halt),
+                  .str_ccnt(str_ccnt),
+                  .str_icnt(str_icnt),
+                  .stp_cnt(stp_cnt),
                   .inc_instr(inc_instr));
 
 

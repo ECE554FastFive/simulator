@@ -9,24 +9,24 @@ z2
 cModel Technology
 d/userspace/y/yaos/ECE554/final_project/IOPipe_1015
 vALU
-Z0 VDg1SIo80bB@j0V0VzS_@n1
+Z0 V`JN@9S9cnhjKRR_L]QIcM3
 r1
 !s85 0
 31
 !i10b 1
-!s100 TVnV__=74<^TQWG4PPP8A1
-I;V^lL0U[PPhG@^_9I<8K93
-Z1 d/userspace/y/yaos/ECE554/final_project/IOPipe_1023
-w1445736028
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v
+!s100 L4kf9]4:G2O^OZN94eYA^1
+I?L>g570VI@:2j6R6`CD3j1
+Z1 dI:/554/IOPipe_1023
+Z2 w1446694750
+8I:/554/IOPipe_1023/ALU.v
+FI:/554/IOPipe_1023/ALU.v
 L0 1
-Z2 OL;L;10.4;61
-!s108 1445984779.532953
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/ALU.v|
+Z3 OE;L;10.3c;59
+!s108 1446765291.990000
+!s107 I:/554/IOPipe_1023/ALU.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/ALU.v|
 !i113 0
-Z3 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z4 o-work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 n@a@l@u
 vbranch_gen
 R0
@@ -34,76 +34,76 @@ r1
 !s85 0
 31
 !i10b 1
-!s100 MFeTP^8nWjYV22QPKMhDo0
-IJXEM8bM7^l<SinQe]l0B;2
+!s100 ?hza7[AIBN`V1Y3Dl[^iT0
+IdB5n?7kW=CEAP3n@MLmY42
 R1
-w1444444974
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_gen.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_gen.v
-L0 1
 R2
-!s108 1445984779.603150
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_gen.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_gen.v|
-!i113 0
+8I:/554/IOPipe_1023/branch_gen.v
+FI:/554/IOPipe_1023/branch_gen.v
+L0 1
 R3
+!s108 1446765292.240000
+!s107 I:/554/IOPipe_1023/branch_gen.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/branch_gen.v|
+!i113 0
+R4
 vbranch_pred
 R0
 r1
 !s85 0
 31
 !i10b 1
-!s100 R3JmVO<Mn7m8kl2cGShFF3
-IX3H4mB_GSMeg5_<YWU:IF1
+!s100 kT5;o=fjKHlAGM<Tfo[m<3
+I]<i]EK5T<>8[HQYiCkb0e0
 R1
-w1445744284
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_pred.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_pred.v
-L0 1
 R2
-!s108 1445984779.654566
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_pred.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/branch_pred.v|
-!i113 0
+8I:/554/IOPipe_1023/branch_pred.v
+FI:/554/IOPipe_1023/branch_pred.v
+L0 1
 R3
+!s108 1446765292.520000
+!s107 I:/554/IOPipe_1023/branch_pred.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/branch_pred.v|
+!i113 0
+R4
 vdata_mem
 R0
 r1
 !s85 0
 31
 !i10b 1
-!s100 LSicP^;fPAJIG<`0m0z::1
-In9nNh<Z@4HOk7cZ]:LV3_1
+!s100 AagQN2E04cXSPAY5k_VL52
+IX[TMT5A1]c@iT^2j=NT@@3
 R1
-w1444662403
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/data_mem.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/data_mem.v
+w1446761556
+8I:/554/IOPipe_1023/data_mem.v
+FI:/554/IOPipe_1023/data_mem.v
 L0 5
-R2
-!s108 1445984779.705545
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/data_mem.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/data_mem.v|
-!i113 0
 R3
+!s108 1446765292.739000
+!s107 I:/554/IOPipe_1023/data_mem.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/data_mem.v|
+!i113 0
+R4
 vdecoder
 R0
 r1
 !s85 0
 31
 !i10b 1
-!s100 :1EfFWC6gHJ<f?HBQNbAc0
-IJF1=^k]RSZ2?oHYHY`=V?2
+!s100 4m=XPH^P8TOnOSN2Rd5Bb2
+IQ8KVoVnhi5aT:_m^<3X892
 R1
-w1445741386
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/decoder.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/decoder.v
-L0 5
 R2
-!s108 1445984779.753370
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/decoder.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/decoder.v|
-!i113 0
+8I:/554/IOPipe_1023/decoder.v
+FI:/554/IOPipe_1023/decoder.v
+L0 5
 R3
+!s108 1446765292.988000
+!s107 I:/554/IOPipe_1023/decoder.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/decoder.v|
+!i113 0
+R4
 vEX_stage
 R0
 r1
@@ -111,18 +111,18 @@ r1
 31
 !i10b 1
 !s100 YFjFd_DzhPND>g_Qjf6O90
-IG;Ag88_J2^E_[XT_XOfT10
+IS1^[[]j5:VB;@WbzL7C1Q0
 R1
-w1445745233
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/EX_stage.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/EX_stage.v
-L0 1
 R2
-!s108 1445984779.958387
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/EX_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/EX_stage.v|
-!i113 0
+8I:/554/IOPipe_1023/EX_stage.v
+FI:/554/IOPipe_1023/EX_stage.v
+L0 1
 R3
+!s108 1446765293.222000
+!s107 I:/554/IOPipe_1023/EX_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/EX_stage.v|
+!i113 0
+R4
 n@e@x_stage
 vhazard_detect
 R0
@@ -131,37 +131,37 @@ r1
 31
 !i10b 1
 !s100 oLfTR[WT?I]moYd;iiff03
-IYe;0JCET41FAWjD;;e>E=0
+I1Zb1jP^IKaEDRmM7E[?N@2
 R1
-w1445053580
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/hazard_detect.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/hazard_detect.v
-L0 1
 R2
-!s108 1445984780.008724
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/hazard_detect.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/hazard_detect.v|
-!i113 0
+8I:/554/IOPipe_1023/hazard_detect.v
+FI:/554/IOPipe_1023/hazard_detect.v
+L0 1
 R3
+!s108 1446765293.503000
+!s107 I:/554/IOPipe_1023/hazard_detect.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/hazard_detect.v|
+!i113 0
+R4
 vID_stage
 R0
 r1
 !s85 0
 31
 !i10b 1
-!s100 ]E1YdNVa68_jgU6mW3z7k2
-Ink[2iWkJZI42[cFnnUjXd0
+!s100 QYHJccUB_KlK^9eEE8TE31
+I9=JDHIlYgaTBi6CWYW?nW0
 R1
-w1445741537
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/ID_stage.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/ID_stage.v
+w1446765286
+8I:/554/IOPipe_1023/ID_stage.v
+FI:/554/IOPipe_1023/ID_stage.v
 L0 1
-R2
-!s108 1445984780.115437
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/ID_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/ID_stage.v|
-!i113 0
 R3
+!s108 1446765293.768000
+!s107 I:/554/IOPipe_1023/ID_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/ID_stage.v|
+!i113 0
+R4
 n@i@d_stage
 vIF_stage
 R0
@@ -169,19 +169,19 @@ r1
 !s85 0
 31
 !i10b 1
-!s100 mY`::LEVSn_MPN0QCS@=_3
-I>hZ4FR<ljLLzNSc;K^eUm0
+!s100 o[Dl?Hb7>^Z3Yc?LSJ9FQ1
+I;`aDQOL`@6]JFmbI0WVif0
 R1
-w1445984554
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v
+w1446764077
+8I:/554/IOPipe_1023/IF_stage.v
+FI:/554/IOPipe_1023/IF_stage.v
 L0 1
-R2
-!s108 1445984780.165796
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/IF_stage.v|
-!i113 0
 R3
+!s108 1446765294.002000
+!s107 I:/554/IOPipe_1023/IF_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/IF_stage.v|
+!i113 0
+R4
 n@i@f_stage
 vin_order_cpu
 R0
@@ -189,57 +189,57 @@ r1
 !s85 0
 31
 !i10b 1
-!s100 >LQ;FJ71dP]>>P?Z:1e<_3
-IGoA3]e[75;j?EXcEkOggW1
+!s100 EGQQeB7;?dQ^iJA]gGDOY1
+IV0gVP4DKHGGm4D8]SOAd[2
 R1
-w1445984515
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu.v
+w1446765281
+8I:/554/IOPipe_1023/in_order_cpu.v
+FI:/554/IOPipe_1023/in_order_cpu.v
 L0 1
-R2
-!s108 1445984780.216064
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu.v|
-!i113 0
 R3
+!s108 1446765294.252000
+!s107 I:/554/IOPipe_1023/in_order_cpu.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/in_order_cpu.v|
+!i113 0
+R4
 vin_order_cpu_tb
 R0
 r1
 !s85 0
 31
 !i10b 1
-!s100 UoUAA[hTk;]8o4TFNRk7z0
-IO93S`BQTCPSY2lWMCd0o?1
+!s100 3=G947>48ig=TU@2Of]VM2
+IoQ_]I``f]EmhAZh?egGNB2
 R1
-w1445984778
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v
+w1446765196
+8I:/554/IOPipe_1023/in_order_cpu_tb.v
+FI:/554/IOPipe_1023/in_order_cpu_tb.v
 L0 1
-R2
-!s108 1445984780.271024
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/in_order_cpu_tb.v|
-!i113 0
 R3
+!s108 1446765294.486000
+!s107 I:/554/IOPipe_1023/in_order_cpu_tb.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/in_order_cpu_tb.v|
+!i113 0
+R4
 vinst_mem
 R0
 r1
 !s85 0
 31
 !i10b 1
-!s100 AUGn^KUEDTA]m>EUUJUoR1
-IN2AfYC6ebY=hbVAZ^B22C0
+!s100 D>3LDn0kAn??Ij6MTSVo80
+InAjSKJI]S?JNDmB5hlRC53
 R1
-w1445739091
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v
+w1446761569
+8I:/554/IOPipe_1023/inst_mem.v
+FI:/554/IOPipe_1023/inst_mem.v
 L0 7
-R2
-!s108 1445984780.321484
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/inst_mem.v|
-!i113 0
 R3
+!s108 1446765294.720000
+!s107 I:/554/IOPipe_1023/inst_mem.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/inst_mem.v|
+!i113 0
+R4
 vMEM_stage
 R0
 r1
@@ -247,57 +247,58 @@ r1
 31
 !i10b 1
 !s100 gST@O@`hHXcm[jJV6Y4H42
-IIggQmEl9B6cHQ?6XMSUg[0
+I]Z1oZKXf92X^jLkfYYzg@1
 R1
-w1444774274
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v
-L0 1
 R2
-!s108 1445984780.369568
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/MEM_stage.v|
-!i113 0
+8I:/554/IOPipe_1023/MEM_stage.v
+FI:/554/IOPipe_1023/MEM_stage.v
+L0 1
 R3
+!s108 1446765295.016000
+!s107 I:/554/IOPipe_1023/MEM_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/MEM_stage.v|
+!i113 0
+R4
 n@m@e@m_stage
 vperf_counter
+!s110 1446765295
+!i10b 1
+!s100 3[PF^VgW4Y_12=]MZOUDP0
+ICnnnlmjk5K`UmPPDH8aX43
 R0
+R1
+R2
+8I:/554/IOPipe_1023/perf_counter.v
+FI:/554/IOPipe_1023/perf_counter.v
+L0 1
+R3
 r1
 !s85 0
 31
-!i10b 1
-!s100 <jEYUfBj2V6M;`Da=XB<73
-IiB[eaSBO[f[l@R>kYb3oe2
-R1
-w1445984373
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v
-L0 1
-R2
-!s108 1445984780.419073
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/perf_counter.v|
+!s108 1446765295.313000
+!s107 I:/554/IOPipe_1023/perf_counter.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/perf_counter.v|
 !i113 0
-R3
+R4
 vregister_file
 R0
 r1
 !s85 0
 31
 !i10b 1
-!s100 6P46RU49@I:cMi1SVKPN;1
-ImORjOCF5`W]91n2U<Ffa=2
+!s100 S7<6<LSNU[J<3;hRJe6]U2
+IY=chdQ`BO`fA?>HOCoo[`0
 R1
-w1445050883
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v
+w1446765224
+8I:/554/IOPipe_1023/register_file.v
+FI:/554/IOPipe_1023/register_file.v
 L0 1
-R2
-!s108 1445984780.519432
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/register_file.v|
-!i113 0
 R3
+!s108 1446765295.547000
+!s107 I:/554/IOPipe_1023/register_file.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/register_file.v|
+!i113 0
+R4
 vWB_stage
 R0
 r1
@@ -305,16 +306,16 @@ r1
 31
 !i10b 1
 !s100 g8=E5QJAz22zIOicZj3dK0
-I1JzecmIUz^7XEHA71f:Fm0
+IhNNQz_FYPQ^L]42]m_em40
 R1
-w1444664286
-8/userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v
-F/userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v
-L0 1
 R2
-!s108 1445984780.568515
-!s107 /userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/userspace/y/yaos/ECE554/final_project/IOPipe_1023/WB_stage.v|
-!i113 0
+8I:/554/IOPipe_1023/WB_stage.v
+FI:/554/IOPipe_1023/WB_stage.v
+L0 1
 R3
+!s108 1446765291.304000
+!s107 I:/554/IOPipe_1023/WB_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/WB_stage.v|
+!i113 0
+R4
 n@w@b_stage
