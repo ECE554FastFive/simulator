@@ -12,7 +12,7 @@
 module reorder_buffer(
     input rst, clk,
     input isDispatch, //serve as the write enable of FIFO
-    input MemOp,   //
+    input isSW,   //
     input RegDest,    //stored for roll back, if it is 1, MT and FL need to be restored
     input [5:0] PR_old_DP, //from map table, the previous PR#
     input [5:0] PR_new_DP,
@@ -28,7 +28,7 @@ module reorder_buffer(
     output [5:0] PR_old_RT,  //PR_old to be retired
     output RegDest_retire,     //only if the instruction write register, the PR_old is returned to MT and FL
     output retire_reg,  //read enable signal of FIFO
-    output retire_LWST,
+    output retire_ST,
     output [3:0] retire_rob,   //for load/store queue, indicate which ROB entry is retired
     output full, empty,   
 
@@ -42,7 +42,7 @@ module reorder_buffer(
     output reg recover          //recover signal, inform RS, MT, FL, LSQ, IS/EX, EX/CMP to flush(ROB# match) or stall (ROB# not match)
 );
 
-reg [18:0] rob [15:0];  //[18]: RegDest, (whether bet PR back to MT and FL) [17]: MemOp, [16:12]rd, [11:6] t_old, [5:0] t_new
+reg [18:0] rob [15:0];  //[18]: RegDest, (whether bet PR back to MT and FL) [17]: isSW, [16:12]rd, [11:6] pr_old, [5:0] pr_new
 reg [15:0] complete_array;
 
 
@@ -70,7 +70,7 @@ end
 
 assign retire_reg = complete_array[head];   //if the head is complete, retire it
 assign PR_old_RT = retire_entry[11:6];      //the PR returned to free list
-assign retire_LWST = retire_entry[17];       //tell LSQ now a load/store is retired
+assign retire_ST = retire_entry[17];       //tell SQ now a load/store is retired
 assign RegDest_retire = retire_entry[18];
 assign retire_rob = head;
 
@@ -82,7 +82,7 @@ always @(posedge clk or negedge rst) begin
         tail <= tail - 1;   //when decreasing tail, the ROB will not accept new instructions
     else if (write) begin
         tail <= tail + 1;
-        rob[tail] <= {RegDest, MemOp, rd_DP, PR_old_DP, PR_new_DP};
+        rob[tail] <= {RegDest, isSW, rd_DP, PR_old_DP, PR_new_DP};
         complete_array[tail] <= 0;   //reset complete bit when allocate a new entry
     end
 end

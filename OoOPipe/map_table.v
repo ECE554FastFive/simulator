@@ -11,6 +11,7 @@ module map_table(
     input hazard_stall, //from hazard detection logic
     
     //from dispatch stage
+    input isDispatch,
     input [4:0] l_rs, l_rt, l_rd,
     input RegDest,
     input [5:0] p_rd_new,
@@ -18,7 +19,6 @@ module map_table(
     //from recovery
     input [4:0] recover_rd,
     input [5:0] p_rd_flush,
-    input p_rd_flush_valid,
     input recover,
     input RegDest_ROB,
     
@@ -35,7 +35,7 @@ reg [63:0] PR_valid;  //logically separate with map table
 wire write_new_rd;
 integer i;
 
-assign write_new_rd = RegDest && !hazard_stall && !recover;
+assign write_new_rd = isDispatch && RegDest && !hazard_stall && !recover;
 
 always @(posedge clk or negedge rst) begin
     if (!rst) begin                             //initial begin
