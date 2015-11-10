@@ -14,7 +14,7 @@ module inst_mem(clk, addr, dout);
 
 	
 	initial begin
-		$readmemh("../FastFiveSim/BubbleInst", mem);
+		$readmemh("../test/BinaryInst", mem);
                 //$readmemh("jb_test01_machine.txt", mem);
 	end
 	

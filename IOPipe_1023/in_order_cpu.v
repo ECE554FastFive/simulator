@@ -29,7 +29,7 @@ reg pred_taken_IF_ID;
 always @(posedge clk or negedge rst) begin
     if (!rst)
         {instr_IF_ID, pc_1_IF_ID, pred_taken_IF_ID} <= 0;
-    else if (flush_ID || (halt && !switch_program)) 
+    else if (flush_ID || (halt && !switch_program && !stall_PC_ID)) 
         {instr_IF_ID, pc_1_IF_ID, pred_taken_IF_ID} <= 0; 
     else if (!stall_PC_ID)
         {instr_IF_ID, pc_1_IF_ID, pred_taken_IF_ID} <= {instr_IF, pc_1_IF, pred_taken};

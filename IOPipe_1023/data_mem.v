@@ -28,7 +28,7 @@ module data_mem(clk, en, we, wdata, addr, rdata);
 	end
 
 	initial begin
-		$readmemh("../FastFiveSim/BubbleData", mem);
+		$readmemh("../test/BinayData", mem);
 	end
 
 endmodule

@@ -9,313 +9,344 @@ z2
 cModel Technology
 d/userspace/y/yaos/ECE554/final_project/IOPipe_1015
 vALU
-Z0 V`JN@9S9cnhjKRR_L]QIcM3
+!s110 1447115772
+!i10b 1
+!s100 TVnV__=74<^TQWG4PPP8A1
+I9E^>Z0MoLWj7PdECLGJ[50
+Z0 VDg1SIo80bB@j0V0VzS_@n1
+Z1 dC:/Users/Kyle/Documents/ECE554/IOPipe_1023
+Z2 w1446942135
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/ALU.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/ALU.v
+L0 1
+Z3 OP;L;10.4a;61
 r1
 !s85 0
 31
-!i10b 1
-!s100 L4kf9]4:G2O^OZN94eYA^1
-I?L>g570VI@:2j6R6`CD3j1
-Z1 dI:/554/IOPipe_1023
-Z2 w1446694750
-8I:/554/IOPipe_1023/ALU.v
-FI:/554/IOPipe_1023/ALU.v
-L0 1
-Z3 OE;L;10.3c;59
-!s108 1446765291.990000
-!s107 I:/554/IOPipe_1023/ALU.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/ALU.v|
-!i113 0
-Z4 o-work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z4 !s108 1447115772.000000
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/ALU.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/ALU.v|
+!s101 -O0
+!i113 1
+Z5 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
 n@a@l@u
 vbranch_gen
+Z6 !s110 1447115773
+!i10b 1
+!s100 MFeTP^8nWjYV22QPKMhDo0
+I36WVZc?UYamB>2iJG<e3C1
 R0
+R1
+R2
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_gen.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_gen.v
+L0 1
+R3
 r1
 !s85 0
 31
-!i10b 1
-!s100 ?hza7[AIBN`V1Y3Dl[^iT0
-IdB5n?7kW=CEAP3n@MLmY42
-R1
-R2
-8I:/554/IOPipe_1023/branch_gen.v
-FI:/554/IOPipe_1023/branch_gen.v
-L0 1
-R3
-!s108 1446765292.240000
-!s107 I:/554/IOPipe_1023/branch_gen.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/branch_gen.v|
-!i113 0
 R4
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_gen.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_gen.v|
+!s101 -O0
+!i113 1
+R5
 vbranch_pred
-R0
-r1
-!s85 0
-31
+R6
 !i10b 1
-!s100 kT5;o=fjKHlAGM<Tfo[m<3
-I]<i]EK5T<>8[HQYiCkb0e0
+!s100 R3JmVO<Mn7m8kl2cGShFF3
+IfAm^S1F@G57J444FjhH?R1
+R0
 R1
 R2
-8I:/554/IOPipe_1023/branch_pred.v
-FI:/554/IOPipe_1023/branch_pred.v
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_pred.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_pred.v
 L0 1
 R3
-!s108 1446765292.520000
-!s107 I:/554/IOPipe_1023/branch_pred.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/branch_pred.v|
-!i113 0
-R4
-vdata_mem
-R0
 r1
 !s85 0
 31
+Z7 !s108 1447115773.000000
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_pred.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/branch_pred.v|
+!s101 -O0
+!i113 1
+R5
+vdata_mem
+R6
 !i10b 1
-!s100 AagQN2E04cXSPAY5k_VL52
-IX[TMT5A1]c@iT^2j=NT@@3
+!s100 mY2L]H36[c9GPBGm6:=j52
+IgP@zPIecDa?[cj;b:eo0Z3
+R0
 R1
-w1446761556
-8I:/554/IOPipe_1023/data_mem.v
-FI:/554/IOPipe_1023/data_mem.v
+w1447115770
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/data_mem.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/data_mem.v
 L0 5
 R3
-!s108 1446765292.739000
-!s107 I:/554/IOPipe_1023/data_mem.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/data_mem.v|
-!i113 0
-R4
-vdecoder
-R0
 r1
 !s85 0
 31
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/data_mem.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/data_mem.v|
+!s101 -O0
+!i113 1
+R5
+vdecoder
+R6
 !i10b 1
-!s100 4m=XPH^P8TOnOSN2Rd5Bb2
-IQ8KVoVnhi5aT:_m^<3X892
+!s100 hGomzRSY[8G]XWWHi8[cN1
+IimFazXz:ddS:nP`kX_V<H2
+R0
 R1
 R2
-8I:/554/IOPipe_1023/decoder.v
-FI:/554/IOPipe_1023/decoder.v
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/decoder.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/decoder.v
 L0 5
 R3
-!s108 1446765292.988000
-!s107 I:/554/IOPipe_1023/decoder.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/decoder.v|
-!i113 0
-R4
-vEX_stage
-R0
 r1
 !s85 0
 31
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/decoder.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/decoder.v|
+!s101 -O0
+!i113 1
+R5
+vEX_stage
+R6
 !i10b 1
 !s100 YFjFd_DzhPND>g_Qjf6O90
-IS1^[[]j5:VB;@WbzL7C1Q0
+IRRnOjm0io;8IOg=_59B_Q2
+R0
 R1
 R2
-8I:/554/IOPipe_1023/EX_stage.v
-FI:/554/IOPipe_1023/EX_stage.v
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/EX_stage.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/EX_stage.v
 L0 1
 R3
-!s108 1446765293.222000
-!s107 I:/554/IOPipe_1023/EX_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/EX_stage.v|
-!i113 0
-R4
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/EX_stage.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/EX_stage.v|
+!s101 -O0
+!i113 1
+R5
 n@e@x_stage
 vhazard_detect
-R0
-r1
-!s85 0
-31
+R6
 !i10b 1
 !s100 oLfTR[WT?I]moYd;iiff03
-I1Zb1jP^IKaEDRmM7E[?N@2
+Iaf@W8fdgIK3>^kf>R^1Ba0
+R0
 R1
 R2
-8I:/554/IOPipe_1023/hazard_detect.v
-FI:/554/IOPipe_1023/hazard_detect.v
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/hazard_detect.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/hazard_detect.v
 L0 1
 R3
-!s108 1446765293.503000
-!s107 I:/554/IOPipe_1023/hazard_detect.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/hazard_detect.v|
-!i113 0
-R4
-vID_stage
-R0
 r1
 !s85 0
 31
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/hazard_detect.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/hazard_detect.v|
+!s101 -O0
+!i113 1
+R5
+vID_stage
+R6
 !i10b 1
 !s100 QYHJccUB_KlK^9eEE8TE31
-I9=JDHIlYgaTBi6CWYW?nW0
+IS5K<Z>FI^88Z2ZI6k70EW1
+R0
 R1
-w1446765286
-8I:/554/IOPipe_1023/ID_stage.v
-FI:/554/IOPipe_1023/ID_stage.v
+R2
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/ID_stage.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/ID_stage.v
 L0 1
 R3
-!s108 1446765293.768000
-!s107 I:/554/IOPipe_1023/ID_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/ID_stage.v|
-!i113 0
-R4
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/ID_stage.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/ID_stage.v|
+!s101 -O0
+!i113 1
+R5
 n@i@d_stage
 vIF_stage
+R6
+!i10b 1
+!s100 h;ZIj7KXjb0c21EokMg7e3
+IN>1U?ab2<O46l5=34MFEB0
 R0
+R1
+R2
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/IF_stage.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/IF_stage.v
+L0 1
+R3
 r1
 !s85 0
 31
-!i10b 1
-!s100 o[Dl?Hb7>^Z3Yc?LSJ9FQ1
-I;`aDQOL`@6]JFmbI0WVif0
-R1
-w1446764077
-8I:/554/IOPipe_1023/IF_stage.v
-FI:/554/IOPipe_1023/IF_stage.v
-L0 1
-R3
-!s108 1446765294.002000
-!s107 I:/554/IOPipe_1023/IF_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/IF_stage.v|
-!i113 0
-R4
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/IF_stage.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/IF_stage.v|
+!s101 -O0
+!i113 1
+R5
 n@i@f_stage
 vin_order_cpu
+R6
+!i10b 1
+!s100 <7<:2a7KfV9V[iMFNhB433
+IiSFV8H89AlFThoc1E<OFk0
 R0
+R1
+w1447098863
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu.v
+L0 1
+R3
 r1
 !s85 0
 31
-!i10b 1
-!s100 EGQQeB7;?dQ^iJA]gGDOY1
-IV0gVP4DKHGGm4D8]SOAd[2
-R1
-w1446765281
-8I:/554/IOPipe_1023/in_order_cpu.v
-FI:/554/IOPipe_1023/in_order_cpu.v
-L0 1
-R3
-!s108 1446765294.252000
-!s107 I:/554/IOPipe_1023/in_order_cpu.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/in_order_cpu.v|
-!i113 0
-R4
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu.v|
+!s101 -O0
+!i113 1
+R5
 vin_order_cpu_tb
-R0
-r1
-!s85 0
-31
+R6
 !i10b 1
-!s100 3=G947>48ig=TU@2Of]VM2
-IoQ_]I``f]EmhAZh?egGNB2
+!s100 2nZnJM[N3S05Sz93]BiF@3
+I`@Xk5Bj9FWINAD1Q05P6D1
+R0
 R1
-w1446765196
-8I:/554/IOPipe_1023/in_order_cpu_tb.v
-FI:/554/IOPipe_1023/in_order_cpu_tb.v
+R2
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu_tb.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu_tb.v
 L0 1
 R3
-!s108 1446765294.486000
-!s107 I:/554/IOPipe_1023/in_order_cpu_tb.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/in_order_cpu_tb.v|
-!i113 0
-R4
-vinst_mem
-R0
 r1
 !s85 0
 31
+R7
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/in_order_cpu_tb.v|
+!s101 -O0
+!i113 1
+R5
+vinst_mem
+Z8 !s110 1447115774
 !i10b 1
-!s100 D>3LDn0kAn??Ij6MTSVo80
-InAjSKJI]S?JNDmB5hlRC53
+!s100 <NzY@3KO>X6]JIzQ@RYmc3
+I6E4:08M[?MNiKIbZ8:eIK1
+R0
 R1
-w1446761569
-8I:/554/IOPipe_1023/inst_mem.v
-FI:/554/IOPipe_1023/inst_mem.v
+w1447115762
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/inst_mem.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/inst_mem.v
 L0 7
 R3
-!s108 1446765294.720000
-!s107 I:/554/IOPipe_1023/inst_mem.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/inst_mem.v|
-!i113 0
-R4
-vMEM_stage
-R0
 r1
 !s85 0
 31
+Z9 !s108 1447115774.000000
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/inst_mem.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/inst_mem.v|
+!s101 -O0
+!i113 1
+R5
+vMEM_stage
+R8
 !i10b 1
 !s100 gST@O@`hHXcm[jJV6Y4H42
-I]Z1oZKXf92X^jLkfYYzg@1
+I6l4z=e_@`K2jQTW=^je6D1
+R0
 R1
 R2
-8I:/554/IOPipe_1023/MEM_stage.v
-FI:/554/IOPipe_1023/MEM_stage.v
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/MEM_stage.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/MEM_stage.v
 L0 1
 R3
-!s108 1446765295.016000
-!s107 I:/554/IOPipe_1023/MEM_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/MEM_stage.v|
-!i113 0
-R4
+r1
+!s85 0
+31
+R9
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/MEM_stage.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/MEM_stage.v|
+!s101 -O0
+!i113 1
+R5
 n@m@e@m_stage
 vperf_counter
-!s110 1446765295
+R8
 !i10b 1
-!s100 3[PF^VgW4Y_12=]MZOUDP0
-ICnnnlmjk5K`UmPPDH8aX43
+!s100 <jEYUfBj2V6M;`Da=XB<73
+IgXA7b?OSlCm:jfM4QWXhz0
 R0
 R1
 R2
-8I:/554/IOPipe_1023/perf_counter.v
-FI:/554/IOPipe_1023/perf_counter.v
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/perf_counter.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/perf_counter.v
 L0 1
 R3
 r1
 !s85 0
 31
-!s108 1446765295.313000
-!s107 I:/554/IOPipe_1023/perf_counter.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/perf_counter.v|
-!i113 0
-R4
+R9
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/perf_counter.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/perf_counter.v|
+!s101 -O0
+!i113 1
+R5
 vregister_file
-R0
-r1
-!s85 0
-31
+R8
 !i10b 1
-!s100 S7<6<LSNU[J<3;hRJe6]U2
-IY=chdQ`BO`fA?>HOCoo[`0
+!s100 I]2`>UKn0WXJm@I9mbJC^2
+I`b8O2^`Fh_U6l49o<TNL52
+R0
 R1
-w1446765224
-8I:/554/IOPipe_1023/register_file.v
-FI:/554/IOPipe_1023/register_file.v
+R2
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/register_file.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/register_file.v
 L0 1
 R3
-!s108 1446765295.547000
-!s107 I:/554/IOPipe_1023/register_file.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/register_file.v|
-!i113 0
-R4
-vWB_stage
-R0
 r1
 !s85 0
 31
+R9
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/register_file.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/register_file.v|
+!s101 -O0
+!i113 1
+R5
+vWB_stage
+R8
 !i10b 1
 !s100 g8=E5QJAz22zIOicZj3dK0
-IhNNQz_FYPQ^L]42]m_em40
+IdIY3NXZ4U2SK`IX]WRUj>2
+R0
 R1
 R2
-8I:/554/IOPipe_1023/WB_stage.v
-FI:/554/IOPipe_1023/WB_stage.v
+8C:/Users/Kyle/Documents/ECE554/IOPipe_1023/WB_stage.v
+FC:/Users/Kyle/Documents/ECE554/IOPipe_1023/WB_stage.v
 L0 1
 R3
-!s108 1446765291.304000
-!s107 I:/554/IOPipe_1023/WB_stage.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/554/IOPipe_1023/WB_stage.v|
-!i113 0
-R4
+r1
+!s85 0
+31
+R9
+!s107 C:/Users/Kyle/Documents/ECE554/IOPipe_1023/WB_stage.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Kyle/Documents/ECE554/IOPipe_1023/WB_stage.v|
+!s101 -O0
+!i113 1
+R5
 n@w@b_stage

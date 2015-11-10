@@ -60,6 +60,7 @@ wire inc_instr;
 ID_stage i_ID_stage(
                     .instr(instr_IF_ID),
                     .clk(clk),
+		    .rst(rst),
                     .wdata(wdata_WB),
                     .waddr(waddr_WB),
                     .reg_wen_WB(reg_wen_WB),
