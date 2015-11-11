@@ -2,6 +2,12 @@
 use strict;
 use warnings;
 
+###		ECE 554 Fast Five Assembler	
+###		Author: Henry Chen			
+###		Recent Edits: 
+###		(11/10)		COE output format 
+###		(11/3)		check and die for r0 destination
+###		(10/29)		pseudo instruction la
 
 my %m_ops = (
 'nop' =>	'000000',
@@ -53,13 +59,15 @@ my %i_ops = (
 my %symbol_table = ();
 my %data_table = ();
 my $instrcount = 0;
+my $instr_string = ""; 
 my $datacount = 0;
+my $data_string = "";
 my $data_section = 0;
 my @temp_array = @ARGV;		#save input arg in temp array
 
-#process input args as <input file names><instruction out file name><data out filename>
+#process input args as <input file names><instruction out filename><data out filename>
 my $argc = scalar @ARGV;
-die "Usage: assemble.pl <input file names><instruction out file name><data out filename>" if $argc < 3;
+die "Usage: assemble.pl <input file names><instruction out filename><data out filename>" if $argc < 3;
 my $instr_filename = $ARGV[$argc-2];
 my $data_filename = $ARGV[$argc-1];
 splice @temp_array, $argc-2, 2;		#extract last two filenames
@@ -68,9 +76,22 @@ splice @temp_array, $argc-2, 2;		#extract last two filenames
 #constants
 use constant ADDR_PER_INSTR => 1;	#number of address count per instruction
 use constant ADDR_PER_DATA => 1;	#number of address count per data
+use constant RADIX => 16; 			#COE file radix (16==hexadecimal)
+
+my $coe_flag = 0;
+my $file_ext = (split(/\./, $instr_filename))[1] ;		#check output file formats
+die "Error: output file formats do not match" if ((split(/\./, $data_filename))[1] ne $file_ext);
+print "Output format: $file_ext\n";
+if((lc $file_ext) eq 'coe') {
+	$coe_flag = 1;
+}
 
 #open data out file
-open(my $fh_data, '>', $data_filename) or die "Could not open file '$instr_filename' $!";
+open(my $fh_data, '>', $data_filename) or die "Could not open file '$data_filename' $!";
+if($coe_flag){
+	$data_string .= 'memory_initialization_radix='.RADIX."\n";
+	$data_string .=  "memory_initialization_vector=\n"
+}
 
 ### first pass ###
 while(<>){		# opens and reads input arguments as files line by line
@@ -96,7 +117,12 @@ while(<>){		# opens and reads input arguments as files line by line
 					my $line = sprintf("%x", $val);
 					die "ERROR: value too large" if (length($line) > 8);
 					$line = ('0' x (8 - length $line)).$line;
-					print $fh_data '@'.sprintf('%03x',$datacount).' '.$line."\n";
+					if($coe_flag) {
+						$data_string .= $line.",\n";
+					}
+					else {
+						$data_string .= '@'.sprintf('%03x',$datacount).' '.$line."\n";
+					}
 					$datacount+= ADDR_PER_DATA;
 				}
 			}
@@ -116,14 +142,24 @@ while(<>){		# opens and reads input arguments as files line by line
 							$line .= sprintf("%x", (ord($values[4*$i + $j])));
 						}
 					}
-					print $fh_data '@'.sprintf('%03x',$datacount).' '.$line."\n";
+					if($coe_flag) {
+						$data_string .= $line.",\n";
+					}
+					else {
+						$data_string .= '@'.sprintf('%03x',$datacount).' '.$line."\n";
+					}
 					$line = "";
 					$datacount+= ADDR_PER_DATA;
 				}
 			}
 			elsif ($type eq '.space'){	#allocate space in data mem
 				for(my $i = 0; $i < $value; $i++ ){
-					print $fh_data '@'.sprintf('%03x',$datacount).' '.('0' x 8)."\n";
+					if($coe_flag) {
+						$data_string .= ('0' x 8).",\n";
+					}
+					else {
+						$data_string .= '@'.sprintf('%03x',$datacount).' '.('0' x 8)."\n";
+					}
 					$datacount+= ADDR_PER_DATA;
 				}
 			}
@@ -154,11 +190,14 @@ while(<>){		# opens and reads input arguments as files line by line
 			$instr = $_;
 		}
 	}
+	$instr =~ s/^\s+|\s+$//g;	#trim instr
+	$instr = lc $instr;			#opcodes to lowercase
 	if($_ =~ m/\w+:/){		#match to any labels in the format (could be on same line as instruction) - LABEL:
 		my @tokins = split(/:/, $_); # split by : (instruction could be on same line as label)
 		$symbol_table{ $tokins[0] } = $instrcount;
 		if((scalar @tokins > 1) && $tokins[1] =~ m/.+\s.+/) {		#if it has intruction on same line increase the instrction count
 			$instrcount += ADDR_PER_INSTR;
+			$instrcount += ADDR_PER_INSTR if ($tokins[1] =~ m/la\s/) ;  #pseudo instruction (la) == 2 instructions
 		}
 	}
 	elsif($_ =~ m/^\..*/ ) {	#match with any directive (must be on its own line) in the format -  .text
@@ -171,24 +210,35 @@ while(<>){		# opens and reads input arguments as files line by line
 	}
 	elsif($_ =~ m/.+/) {	#leftover must be instruction (must have space in middle)
 		$instrcount += ADDR_PER_INSTR ;
-		$instrcount += ADDR_PER_INSTR if ($instr eq 'la') ;  #pseudo instruction == 2 instructions
+		$instrcount += ADDR_PER_INSTR if ($instr eq 'la') ;  #pseudo instruction (la) == 2 instructions
 	}
 }
-close $fh_data;
 print "pass one complete\n";
 
 #debug: print symbol table
 foreach my $key ( keys %symbol_table) {
     print( "$key is at instr addr: $symbol_table{$key}\n" );
 }
+printf("number of instructions %d\n", $instrcount/ADDR_PER_INSTR);
 foreach my $key ( keys %data_table) {
     print( "$key is at data addr: $data_table{$key}\n" );
 }
- printf("number of instructions %d\n", $instrcount/ADDR_PER_INSTR);
+printf("number of words of data: %d\n", $datacount/ADDR_PER_DATA);
+
+if($coe_flag){ 
+	$data_string =~ s/,\n$/;\n/; 
+}
+print $fh_data $data_string;
+
+close $fh_data;
 
 ### second pass ###
 #get file handle
 open(my $fh, '>', $instr_filename) or die "Could not open file '$instr_filename' $!";
+if($coe_flag){
+	print $fh 'memory_initialization_radix='.RADIX."\n";
+	print $fh "memory_initialization_vector=\n"
+}
 $instrcount = 0;		#reset instruction count
 @ARGV = @temp_array;	#restore argv to temp array
 my $line = "";			#line to contain instruction
@@ -330,20 +380,38 @@ while(<>){				# opens and reads input arguments as files line by line
 			my $addr = dec2bin($data_table{$imm}, 32);
 			$line = '000100'.('0' x 5).dec2bin($rs, 5).substr($addr, 0, 16);	#lui rs, addr (upper 16)
 			my $line2 = '000010'.dec2bin($rs, 5).dec2bin($rs, 5).substr($addr, 8, 16);	#ori rs, rs, addr (lower 16)
-			print $fh '@'.sprintf('%03x',$instrcount).' '.bin2hex($line)." //pseudo lui \$r$rs, $imm (upper 16)\n";
+			if($coe_flag) {
+				$instr_string .= bin2hex($line).",\n";
+			}
+			else {
+				$instr_string .= '@'.sprintf('%03x',$instrcount).' '.bin2hex($line)." //pseudo lui \$r$rs, $imm (upper 16)\n";
+			}
 			$instrcount += ADDR_PER_INSTR;
-			print $fh '@'.sprintf('%03x',$instrcount).' '.bin2hex($line2)." //pseudo ori \$r$rs, \$r$rs, $imm (lower 16)\n";
+			if($coe_flag) {
+				$instr_string .= bin2hex($line2).",\n";
+			}
+			else {
+				$instr_string .= '@'.sprintf('%03x',$instrcount).' '.bin2hex($line2)." //pseudo ori \$r$rs, \$r$rs, $imm (lower 16)\n";
+			}
 			$instrcount += ADDR_PER_INSTR;
 			next;	#continue (because special case print)
 		}
 		else {
 			die ("ERROR: non-existent op-code");	#quit on error
 		}
-		#print $fh $line."\n";
-		print $fh '@'.sprintf('%03x',$instrcount).' '.bin2hex($line).' //'.$_."\n";
+		if($coe_flag) {
+			$instr_string .= bin2hex($line).",\n";
+		}
+		else {
+			$instr_string .= '@'.sprintf('%03x',$instrcount).' '.bin2hex($line).' //'.$_."\n";
+		}
 		$instrcount += ADDR_PER_INSTR;
 	}
 }
+if($coe_flag){ 
+	$instr_string =~ s/,\n$/;\n/; 
+}
+print $fh $instr_string;
 close $fh;
 print "pass two complete\n";
 
