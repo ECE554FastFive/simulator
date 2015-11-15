@@ -13,6 +13,7 @@ reg changeFlow;
 
 reg hazard_stall;
 
+wire rob_num_dp;
 //retire stage, 
 wire [5:0] PR_old_RT;
 wire RegDest_retire;
@@ -48,6 +49,7 @@ reorder_buffer i_reorder_buffer(
                                 .jb_addr(jb_addr),
                                 .changeFlow(changeFlow),
                                 .hazard_stall(hazard_stall),
+                                .rob_num_dp(rob_num_dp),
                                 .PR_old_RT(PR_old_RT),
                                 .RegDest_retire(RegDest_retire),
                                 .retire_reg(retire_reg),
@@ -69,7 +71,7 @@ initial begin
     rst = 0;
     hazard_stall = 0;
     #2 rst = 1;
-    set_dispatch(0, 0, 0, 6'h01, 6'h21, 6'h01);    //set isDispatch to 0
+    set_dispatch(0, 0, 0, 6'h00, 6'h00, 6'h00);    //set isDispatch to 0
     set_complete(0, 4'h0, 32'h00000000, 0);    //set complete to 0
     @(posedge clk);
     set_dispatch(1, 0, 1, 6'h01, 6'h21, 6'h01);    //start dispatch

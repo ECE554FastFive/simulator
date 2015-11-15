@@ -7,7 +7,10 @@ module decoder(
     output reg writeRd,
     output reg RegDest,
     output reg isDispatch,
-    output reg mem_wen
+    output reg mem_wen,
+    output reg mem_ren,
+    output reg read_rs,
+    output reg read_rt
  );
 localparam NOP = 6'b000000;
 localparam ADD = 6'b000001;
@@ -59,240 +62,360 @@ always @(ctrl_codes) begin
              RegDest = 0;
              isDispatch = 0;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         ADD: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         ADDI: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         SUB: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         LUI: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         MOV: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         SLL: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         SRA: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         SRL: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         AND: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         ANDI: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         NOT: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         OR: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         ORI: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         XOR: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         XORI: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         LW: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 1;
+             read_rs = 1;
+             read_rt = 0;
          end
         SW: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 1;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         B: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         BEQ: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         BGT: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         BGE: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         BLE: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         BLT: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         BNE: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         J: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         JAL: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         JALR: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         JR: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         STRCNT: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         STPCNT: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         LDCC: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         LDIC: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         TX: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 0;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         HALT: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
         ADDB: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         ADDBI: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         SUBB: begin
             writeRd = 1;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 1;
          end
         SUBBI: begin
             writeRd = 0;
              RegDest = 1;
              isDispatch = 1;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 1;
+             read_rt = 0;
          end
         default: begin
             writeRd = 0;
              RegDest = 0;
              isDispatch = 0;
              mem_wen = 0;
+             mem_ren = 0;
+             read_rs = 0;
+             read_rt = 0;
          end
     endcase
 end

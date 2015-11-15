@@ -48,7 +48,7 @@ wire [31:0] branch_addr;
 //branch resolver
 branch_gen ibranch_gen(.isBranch(isBranch), .opcode(instr[31:26]), .flag_n(flag_n), .flag_z(flag_z), .flag_v(flag_v));
 assign branch_addr = pc_1 + {{16{instr[15]}}, instr[15:0]};
-assign changeFlow = branch_addr | isJump;                                 //first assume branch untaken
+assign changeFlow = isBranch | isJump;                                 //first assume branch untaken
 assign jb_addr = isBranch ? branch_addr : (isJR ? rs_data : {pc_1[31:26], instr[25:0]});
 
 endmodule

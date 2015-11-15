@@ -14,6 +14,7 @@ reg isDispatch;
 reg [3:0] rob_num_dp;
 reg [5:0] p_rd_new;
 reg [5:0] p_rs;
+reg read_rs, read_rt;
 reg v_rs;
 reg [5:0] p_rt;
 reg v_rt;
@@ -42,6 +43,7 @@ wire mem_ren_out;
 wire mem_wen_out;
 wire issue;
 wire lss_full;
+wire [3:0] rob_num_out;
 
 ls_station i_lss(
                         .clk(clk),
@@ -50,8 +52,10 @@ ls_station i_lss(
                         .rob_num_dp(rob_num_dp),
                         .p_rd_new(p_rd_new),
                         .p_rs(p_rs),
+                        .read_rs(read_rs),
                         .v_rs(v_rs),
                         .p_rt(p_rt),
+                        .read_rt(read_rt),
                         .v_rt(v_rt),
                         .mem_ren(mem_ren),
                         .mem_wen(mem_wen),
@@ -66,6 +70,7 @@ ls_station i_lss(
                         .p_rt_out(p_rt_out),
                         .p_rd_out(p_rd_out),
                         .immed_out(immed_out),
+                        .rob_num_out(rob_num_out),
                         .RegDest_out(RegDest_out),
                         .mem_ren_out(mem_ren_out),
                         .mem_wen_out(mem_wen_out),
@@ -77,6 +82,8 @@ initial begin
     clk = 0;
     rst = 0;
     assert_idx = 0;
+    read_rs = 1;
+    read_rt = 1;
     #2 rst = 1;
     set_dispatch(0, 4'h0, 6'h00, 6'h00, 0, 6'h00, 0, 0, 0, 16'h0000);
     set_rec(0, 4'h0);

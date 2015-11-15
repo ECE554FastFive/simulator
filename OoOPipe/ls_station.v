@@ -10,8 +10,10 @@ module ls_station(
      input [3:0] rob_num_dp,
      input [5:0] p_rd_new,            //this rd from decode stage, it is actually rt for load
      input [5:0] p_rs,
-     input v_rs,
+     input read_rs,                    //asserted if rs is read
+     input v_rs,                       //this input is from map table, if rs is not used, set this to 1
      input [5:0] p_rt,
+     input read_rt,
      input v_rt,	 
      input mem_ren, mem_wen,  //enable signal for LSQ can be generated from these two signals
      input [15:0] immed,
@@ -28,9 +30,10 @@ module ls_station(
      input complete,
 
      output [5:0] p_rs_out, p_rt_out,
-     output [5:0] p_rd_out,
+     output [5:0] p_rd_out,   //part of the result
      output [15:0] immed_out,
-     output RegDest_out,       //for load instruction, write register, if mem_ren is 1, this must be 1
+     output [3:0] rob_num_out,
+     output RegDest_out,       //for load instruction, write register, if mem_ren is 1, this must be 1, part of result
      output mem_ren_out,       //for load instruction, read memory
      output mem_wen_out,        //for store instruction, write memory
      output issue,              //asserted if an instruction issued
@@ -40,17 +43,18 @@ module ls_station(
     
 //[41]: isLW, [40]: isST, [39:36]:rob_num, [35:30] p_rd, [29:24]: p_rs, [23]:v_rs
 //[22:17]: p_rt, [16] v_rt, [15:0] immed,
-reg [41:0] ls_station [3:0]; 
+reg [41:0] ls_station [0:3]; 
 reg [3:0] lss_valid;          //valid array for the lss, initialized to 0, when allocate set to 1, deallocated set to 0
+
+reg [2:0] counter; 
+reg [3:0] head, tail; 
+reg [1:0] head_addr; 
 
 wire read, write;
 wire head_rdy;    //the head is ready to be issued
 assign write = isDispatch && !stall_hazard && !lss_full && !recover && (mem_ren || mem_wen);
-assign read = !stall_hazard && !recover && head_rdy;   //stall_hazard from outside, asserted if other blocks have hazard
+assign read = !stall_hazard && !recover && head_rdy && lss_valid[head_addr];   //stall_hazard from outside, asserted if other blocks have hazard
 
-reg [2:0] counter; 
-reg [3:0] head, tail; 
-reg [1:0] head_addr;   
 //counter recording full or empty status
 always @(posedge clk or negedge rst) begin
     if (!rst) 
@@ -71,7 +75,6 @@ always @(posedge clk or negedge rst) begin
         head <= 4'b0001;
         head_addr <= 2'b00;           
         tail <= 4'b0001;  
-        lss_valid <= 4'b0000;		
     end
     else begin
         if (write) begin     
@@ -108,8 +111,9 @@ generate
                 lss_valid[i] <= 1'b0;
             end
             else begin
-               if (write && tail[i]) begin
-                   ls_station[i] <= {mem_ren, mem_wen, rob_num_dp, p_rd_new, p_rs, v_rs, p_rt, v_rt, immed};
+               if (write && tail[i]) begin //this is ok, because if a entry is tail, valid[i] is 0, head[i] is 0
+                   ls_station[i] <= {mem_ren, mem_wen, rob_num_dp, p_rd_new, p_rs, v_rs || (!read_rs),
+                                     p_rt, v_rt || (!read_rt), immed};
                    lss_valid[i] <= 1'b1;
                end
                else begin
@@ -140,5 +144,6 @@ assign immed_out = ls_station[head_addr][15:0];
 assign RegDest_out = ls_station[head_addr][41];   //from isLW (mem_ren)
 assign mem_ren_out = ls_station[head_addr][41];   //from isLW (mem_ren)
 assign mem_wen_out = ls_station[head_addr][40];   //from isSW (mem_wen)
+assign rob_num_out = ls_station[head_addr][39:36];
 assign issue = read;
 endmodule

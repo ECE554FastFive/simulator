@@ -25,6 +25,8 @@ module reorder_buffer(
 
     input hazard_stall,   //stall because of structure hazard, won't allocate new entry
 
+    output [3:0] rob_num_dp, //rob number in dispatch stage
+
     output [5:0] PR_old_RT,  //PR_old to be retired
     output RegDest_retire,     //only if the instruction write register, the PR_old is returned to MT and FL
     output retire_reg,  //read enable signal of FIFO
@@ -42,7 +44,7 @@ module reorder_buffer(
     output reg recover          //recover signal, inform RS, MT, FL, LSQ, IS/EX, EX/CMP to flush(ROB# match) or stall (ROB# not match)
 );
 
-reg [18:0] rob [15:0];  //[18]: RegDest, (whether bet PR back to MT and FL) [17]: isSW, [16:12]rd, [11:6] pr_old, [5:0] pr_new
+reg [18:0] rob [0:15];  //[18]: RegDest, (whether bet PR back to MT and FL) [17]: isSW, [16:12]rd, [11:6] pr_old, [5:0] pr_new
 reg [15:0] complete_array;
 
 
@@ -50,7 +52,7 @@ reg [15:0] complete_array;
 /////////////////////////////////////////////Synch FIFO structure///////////////////////////////////////////
 reg [3:0] head, tail;
 reg dec_tail;  //for recovery
-reg [18:0] retire_entry; 
+assign rob_num_dp = tail;
 
 wire read, write;
 //no read or write of ROB during recovery
@@ -60,18 +62,16 @@ assign read = retire_reg && !empty && !recover && !hazard_stall;
 always @(posedge clk or negedge rst) begin
     if (!rst) begin
         head <= 4'h0;
-        retire_entry <= 0;
     end
     else if (read) begin
         head <= head + 1;
-        retire_entry <= rob[head];
     end
 end
 
 assign retire_reg = complete_array[head];   //if the head is complete, retire it
-assign PR_old_RT = retire_entry[11:6];      //the PR returned to free list
-assign retire_ST = retire_entry[17];       //tell SQ now a load/store is retired
-assign RegDest_retire = retire_entry[18];
+assign PR_old_RT = rob[head][11:6];      //the PR returned to free list
+assign retire_ST = rob[head][17];       //tell SQ now a load/store is retired
+assign RegDest_retire = rob[head][18];
 assign retire_rob = head;
 
 //tail logic
