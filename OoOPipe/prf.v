@@ -17,7 +17,7 @@ wire clk2x, clk_buf;
 reg [5:0] clked_rs;
 reg [5:0] clked_rt;
 reg [31:0] rd_data_rs, rd_data_rt;
-wire [31:0] rd_data_a, rd_data_b;
+wire [31:0] rd_data_a, rd_data_b, rd_data_a_muxed, rd_data_b_muxed;
 wire [5:0] addra, addrb;
 wire we;
 
@@ -42,8 +42,8 @@ always@(posedge clk_buf, posedge rst) begin
 		rd_data_rs <= 32'h0;
 		rd_data_rt <= 32'h0;
 	end else begin
-		rd_data_rs <= rd_data_a;
-		rd_data_rt <= rd_data_b;
+		rd_data_rs <= rd_data_a_muxed;
+		rd_data_rt <= rd_data_b_muxed;
 	end
 end
 
@@ -67,7 +67,7 @@ blockram br_prf(
   .doutb(rd_data_b)		//data out B
 );
 
-//we also need register bypass. When read address equals to write address, output after next clock edge will be the value to be written instead 
-//of the value from block RAM entry. 
+assign rd_data_a_muxed = (|clked_rs) ? rd_data_a : 32'h0;		//if addr not 0, read data, else is 0
+assign rd_data_b_muxed = (|clked_rt) ? rd_data_b : 32'h0;
 
 endmodule
