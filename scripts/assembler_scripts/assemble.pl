@@ -379,7 +379,7 @@ while(<>){				# opens and reads input arguments as files line by line
 			die "ERROR: invalid data label" if (!exists($data_table{$imm})); #check if label is valid	
 			my $addr = dec2bin($data_table{$imm}, 32);
 			$line = '000100'.('0' x 5).dec2bin($rs, 5).substr($addr, 0, 16);	#lui rs, addr (upper 16)
-			my $line2 = '001101'.dec2bin($rs, 5).dec2bin($rs, 5).substr($addr, 8, 16);	#ori rs, rs, addr (lower 16)
+			my $line2 = '001101'.dec2bin($rs, 5).dec2bin($rs, 5).substr($addr, 16, 16);	#ori rs, rs, addr (lower 16)
 			if($coe_flag) {
 				$instr_string .= bin2hex($line).",\n";
 			}
