@@ -5,8 +5,8 @@ module phy_reg_file (
 	//Read interface
 	input [5:0] p_rs, //Read Address 1
 	input [5:0] p_rt, //Read Address 2
-	output [31:0] rd_data_rs, //Read Data out1
-	output [31:0] rd_data_rt, //Read Data out2
+	output reg [31:0] rd_data_rs, //Read Data out1
+	output reg [31:0] rd_data_rt, //Read Data out2
 	//Write interface
 	input [5:0] p_rd,			 //From CDB.Tag (complete stage)
 	input [31:0] wr_data_in, //From CDB.Value  (complete stage)
@@ -16,8 +16,7 @@ module phy_reg_file (
 wire clk2x, clk_buf; 
 reg [5:0] clked_rs;
 reg [5:0] clked_rt;
-reg [31:0] rd_data_rs, rd_data_rt;
-wire [31:0] rd_data_a, rd_data_b, rd_data_a_muxed, rd_data_b_muxed;
+wire [31:0] rd_data_a, rd_data_b;
 wire [5:0] addra, addrb;
 wire we;
 
@@ -26,8 +25,8 @@ assign addra = we?p_rd:clked_rs;	//if write enabled, addr change to rd
 assign addrb = we?p_rd:clked_rt;
 
 //read on second clk edge of 2x clk
-always@(posedge clk2x, posedge rst) begin
-	if(rst) begin
+always@(posedge clk2x, negedge rst) begin
+	if(!rst) begin
 		clked_rs <= 6'h0;
 		clked_rt <= 6'h0;
 	end else begin
@@ -37,13 +36,13 @@ always@(posedge clk2x, posedge rst) begin
 end
 
 //clk the mem read outputs, keep same on clk high (when writing)
-always@(posedge clk_buf, posedge rst) begin
-	if(rst) begin
+always@(posedge clk_buf, negedge rst) begin
+	if(!rst) begin
 		rd_data_rs <= 32'h0;
 		rd_data_rt <= 32'h0;
 	end else begin
-		rd_data_rs <= rd_data_a_muxed;
-		rd_data_rt <= rd_data_b_muxed;
+		rd_data_rs <= rd_data_a;
+		rd_data_rt <= rd_data_b;
 	end
 end
 
@@ -51,7 +50,7 @@ clk_mult cm(.CLKIN_IN(clk),
             .RST_IN(rst), 
             .CLKIN_IBUFG_OUT(), 
             .CLK0_OUT(clk_buf), 
-				.CLK2X_OUT(clk2x),
+            .CLK2X_OUT(clk2x),
             .LOCKED_OUT());
 
 blockram br_prf(
@@ -67,7 +66,7 @@ blockram br_prf(
   .doutb(rd_data_b)		//data out B
 );
 
-assign rd_data_a_muxed = (|clked_rs) ? rd_data_a : 32'h0;		//if addr not 0, read data, else is 0
-assign rd_data_b_muxed = (|clked_rt) ? rd_data_b : 32'h0;
+//we also need register bypass. When read address equals to write address, output after next clock edge will be the value to be written instead 
+//of the value from block RAM entry. 
 
 endmodule

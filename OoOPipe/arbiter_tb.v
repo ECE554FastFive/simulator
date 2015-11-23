@@ -2,6 +2,8 @@
 
 module tb();
 
+ reg clk, rst, is_alu, is_ls;
+
  abiter abiter(
 	.rst(rst),
 	.clk(clk),
@@ -13,7 +15,7 @@ module tb();
 	.stall_ls(stall_ls)
 	);
 
-	reg clk, rst, is_alu, is_ls;
+	
 
  	initial begin
 		clk <= 1'b1;

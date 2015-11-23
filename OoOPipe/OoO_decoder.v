@@ -10,7 +10,18 @@ module decoder(
     output reg mem_wen,
     output reg mem_ren,
     output reg read_rs,
-    output reg read_rt
+    output reg read_rt,
+    output reg alloc_RS_en,
+    output reg ldic,
+    output reg isSignEx,
+    output reg isImmed,
+    output reg alu_ctrl0,
+    output reg alu_ctrl1,
+    output reg alu_ctrl2,
+    output reg alu_ctrl3,
+    output reg isJump,
+    output reg isJR,
+    output reg link
  );
 localparam NOP = 6'b000000;
 localparam ADD = 6'b000001;
@@ -65,6 +76,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 0;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         ADD: begin
             writeRd = 1;
@@ -74,6 +96,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         ADDI: begin
             writeRd = 0;
@@ -83,6 +116,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 1;
+             isImmed = 1;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         SUB: begin
             writeRd = 1;
@@ -92,6 +136,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         LUI: begin
             writeRd = 0;
@@ -101,6 +156,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 1;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         MOV: begin
             writeRd = 0;
@@ -110,6 +176,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         SLL: begin
             writeRd = 1;
@@ -119,6 +196,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         SRA: begin
             writeRd = 1;
@@ -128,6 +216,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         SRL: begin
             writeRd = 1;
@@ -137,6 +236,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         AND: begin
             writeRd = 1;
@@ -146,6 +256,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         ANDI: begin
             writeRd = 0;
@@ -155,6 +276,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 1;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         NOT: begin
             writeRd = 0;
@@ -164,6 +296,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         OR: begin
             writeRd = 1;
@@ -173,6 +316,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         ORI: begin
             writeRd = 0;
@@ -182,6 +336,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 1;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         XOR: begin
             writeRd = 1;
@@ -191,6 +356,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         XORI: begin
             writeRd = 0;
@@ -200,6 +376,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 1;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         LW: begin
             writeRd = 0;
@@ -209,6 +396,17 @@ always @(ctrl_codes) begin
              mem_ren = 1;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 0;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         SW: begin
             writeRd = 0;
@@ -218,6 +416,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 0;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         B: begin
             writeRd = 0;
@@ -227,6 +436,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         BEQ: begin
             writeRd = 0;
@@ -236,6 +456,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         BGT: begin
             writeRd = 0;
@@ -245,6 +476,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         BGE: begin
             writeRd = 0;
@@ -254,6 +496,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         BLE: begin
             writeRd = 0;
@@ -263,6 +516,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         BLT: begin
             writeRd = 0;
@@ -272,6 +536,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         BNE: begin
             writeRd = 0;
@@ -281,6 +556,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         J: begin
             writeRd = 0;
@@ -290,6 +576,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 1;
+             isJR = 0;
+             link = 0;
          end
         JAL: begin
             writeRd = 0;
@@ -299,6 +596,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 1;
+             isJR = 0;
+             link = 1;
          end
         JALR: begin
             writeRd = 0;
@@ -308,6 +616,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 1;
+             isJR = 1;
+             link = 1;
          end
         JR: begin
             writeRd = 0;
@@ -317,6 +636,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 1;
+             isJR = 1;
+             link = 0;
          end
         STRCNT: begin
             writeRd = 0;
@@ -326,6 +656,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         STPCNT: begin
             writeRd = 0;
@@ -335,6 +676,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         LDCC: begin
             writeRd = 0;
@@ -344,6 +696,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         LDIC: begin
             writeRd = 0;
@@ -353,6 +716,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 1;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         TX: begin
             writeRd = 0;
@@ -362,6 +736,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 0;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         HALT: begin
             writeRd = 0;
@@ -371,6 +756,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 0;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         ADDB: begin
             writeRd = 1;
@@ -380,6 +776,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         ADDBI: begin
             writeRd = 0;
@@ -389,6 +796,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 1;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         SUBB: begin
             writeRd = 1;
@@ -398,6 +816,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 1;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 1;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         SUBBI: begin
             writeRd = 0;
@@ -407,6 +836,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 1;
              read_rt = 0;
+             alloc_RS_en = 1;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 1;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 1;
+             alu_ctrl2 = 1;
+             alu_ctrl3 = 1;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
         default: begin
             writeRd = 0;
@@ -416,6 +856,17 @@ always @(ctrl_codes) begin
              mem_ren = 0;
              read_rs = 0;
              read_rt = 0;
+             alloc_RS_en = 0;
+             ldic = 0;
+             isSignEx = 0;
+             isImmed = 0;
+             alu_ctrl0 = 0;
+             alu_ctrl1 = 0;
+             alu_ctrl2 = 0;
+             alu_ctrl3 = 0;
+             isJump = 0;
+             isJR = 0;
+             link = 0;
          end
     endcase
 end

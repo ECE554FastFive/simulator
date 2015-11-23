@@ -32,6 +32,14 @@ wire isDispatch;        //
 wire mem_wen;
 wire mem_ren;
 wire read_rs, read_rt;
+
+//to alu reservation station
+wire alloca_RS_en;
+wire ldic, isSignedEx, isImmed;
+wire alu_ctrl0, alu_ctrl1, alu_ctrl2, alu_ctrl3;
+wire isJump, isJR;
+wire link;
+
 decoder i_decoder(
                   .opcode(instr_IF_DP[31:26]),
                   .writeRd(writeRd),
@@ -40,7 +48,18 @@ decoder i_decoder(
                   .mem_wen(mem_wen),
                   .mem_ren(mem_ren),
                   .read_rs(read_rs),
-                  .read_rt(read_rt));
+                  .read_rt(read_rt),
+                  .alloc_RS_en(alloc_RS_en),
+                  .ldic(ldic),
+                  .isSignEx(isSignEx),
+                  .isImmed(isImmed),
+                  .alu_ctrl0(alu_ctrl0),
+                  .alu_ctrl1(alu_ctrl1),
+                  .alu_ctrl2(alu_ctrl2),
+                  .alu_ctrl3(alu_ctrl3),
+                  .isJump(isJump),
+                  .isJR(isJR),
+                  .link(link));
 ////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////map table//////////////////////////////////////////
@@ -147,7 +166,7 @@ wire rob_full, rob_empty;
 wire [3:0] flush_rob_num;
 
 wire [3:0] rob_num_dp;   //rob number written into reservation station
-reorder_buffer i_reorder_buffer(
+reorder_buffer_beh i_reorder_buffer(
                                 .rst(rst),
                                 .clk(clk),
                                 .isDispatch(isDispatch),
@@ -224,57 +243,153 @@ ls_station i_lss(       .clk(clk),
                         .issue(issue_lss),
                         .lss_full(lss_full)); 
 
+////////////////////////////////ALU reservation station///////////////////////////////////
+wire rs_alu_full;
+///////////////temporary signals////////////
+wire stall_hazard_rs_alu;
+assign stall_hazard_rs_alu = 0;
+wire stall_issue = 0;
+////////////////////////////////////////////
 
-/////////////////////////////////physical register for ALU////////////////////////////
-/*physical_register i_physical_register_ALU(
-                                      .raddr0(raddr0),
-                                      .raddr1(raddr1),
-                                      .we(we),
-                                      .waddr(waddr),
-                                      .din(din),
-                                      .clk(clk),
-                                      .dout0(dout0),
-                                      .dout1(dout1));
-*/
-/////////////////////////////////physical register for MEM////////////////////////////
-/////////temporary wires/////////
+wire issue_en_alu;
+//to EX (IS/EX pipeline reg)
+wire [16:0] EX_ctrl_in;
+//[5:0] opcode, [6] ldic, [7] isSignEx, [8] isImmed, [9] alu_ctrl0, [10] alu_ctrl1, [11] alu_ctrl2, [12] alu_ctrl3
+//[13] isJump, [14] isJR, [15] RegDest, [16] link
+assign EX_ctrl_in = { link,
+                      RegDest,
+                      isJR,
+                      isJump,
+                      alu_ctrl3, alu_ctrl2, alu_ctrl1, alu_ctrl0,
+                      isImmed, isSignEx,
+                      ldic,                     //load instruction count
+                      instr_IF_DP[31:26] };
+                      
+wire [31:0] PC_out_rs_alu;
+wire [15:0] imm_rs_alu;
+//go through EX (IS/EX pipeline reg)stage, but used in COMPL stage
+wire [3:0] EX_rob_alu;
+wire [5:0] p_rd_rs_alu;
+//to physical register
+wire [5:0] p_rs_out_alu, p_rt_out_alu;
+
+rs_alu i_rs_alu(
+                  .clk(clk),
+                  .rst(rst),
+                  .num_rob_entry(rob_num_dp),   //rob number of rob in dispatch stage
+                  .PC_in(pc_1_IF_DP),       //
+                  .EX_ctrl_in(EX_ctrl_in),
+                  .p_rs_in(p_rs),        //from map table 
+                  .p_rt_in(p_rt),
+                  .p_rs_rdy_in(p_rs_v),   //valid bits from map table
+                  .p_rt_rdy_in(p_rt_v),
+                  .rs_read(read_rs),      //from the decoder, indicates if read rs/rt
+                  .rt_read(read_rt),
+                  .imm_bits_in(instr_IF_DP[15:0]),   //immediate value
+                  .p_rd_new(PR_new),               //from free list
+                  .alloc_RS_en(alloc_RS_en),
+                  .recover(recover),
+                  .rec_rob_entry(flush_rob_num),
+                  .stall_hazard(stall_hazard_rs_alu),
+                  .stall_issue(stall_issue),
+                  .bus_en(complete && RegDest_compl),   //set ready bit only if RegDest is 1
+                  .tag(p_rd_compl),
+                  .issue_en(issue_en_alu),
+                  .PC_out(PC_out_rs_alu),                   //to EX stage
+                  .rob_id_out(EX_rob_alu),
+                  .EX_ctrl_out(EX_ctrl_out),         //one part to EX, the other part used in COMPL  
+                  .p_rs_out(p_rs_out_alu),               //to physical register
+                  .p_rt_out(p_rt_out_alu),
+                  .imm_bits_out(imm_rs_alu),       
+                  .p_rd_out(p_rd_rs_alu),
+                  .stl_dec_rs_alu_full(rs_alu_full));
+
+/////////temporary wires////////////////////
 wire [31:0] result_compl;
+assign result_compl = 32'h00000000;
+
+////////////////////////////////////////////
+
+wire [31:0] rs_data_IS_EX_alu, rt_data_IS_EX_alu;
+/////////////////////////////////physical register for ALU////////////////////////////
+physical_register i_physical_register_ALU(
+                                      .raddr0(p_rs_out_alu),
+                                      .raddr1(p_rt_out_alu),
+                                      .we(RegDest_compl),
+                                      .waddr(p_rd_compl),
+                                      .din(result_compl),
+                                      .clk(clk),
+                                      .dout0(rs_data_IS_EX_alu),
+                                      .dout1(rt_data_IS_EX_alu));
+
+//////////////////////////////IS/EX pipeline register for ALU instructions///////////////
+//pc_1, immed_value, ldic, isSignedEx, immed, alu_ctrls, isJump, isJR, 
+////temporary wires//////////
+wire [15:0] instr_cnt, cycle_cnt;
+assign instr_cnt = 16'h0000;
+assign cycle_cnt = 16'h0000;
+/////////////////////////////
+
+/////////////////////////////////functional units////////////////////////////////////////
+EX_stage_OoO i_EX_stage_OoO(
+                            .instr_cnt(instr_cnt),
+                            .cycle_cnt(cycle_cnt),
+                            .rs_data(rs_data_IS_EX_alu),
+                            .rt_data(rt_data_IS_EX_alu),
+                            .pc_1(pc_1),
+                            .immed_value(immed_value),
+                            .opcode(opcode),
+                            .ldic(ldic),
+                            .isSignEx(isSignEx),
+                            .immed(immed),
+                            .alu_ctrl0(alu_ctrl0),
+                            .alu_ctrl1(alu_ctrl1),
+                            .alu_ctrl2(alu_ctrl2),
+                            .alu_ctrl3(alu_ctrl3),
+                            .isJump(isJump),
+                            .isJR(isJR),
+                            .alu_out(alu_out),
+                            .changeFlow(changeFlow),
+                            .jb_addr(jb_addr));
+
+
+/////////////////////////////////physical register for MEM////////////////////////////
 
 //////////////////////////////////
 //physical register serves as part of IS_EX pipeline register
-wire [31:0] rs_data_IS_EX, rt_data_IS_EX;
-physical_register i_physical_register(
+wire [31:0] rs_data_IS_EX_ls, rt_data_IS_EX_ls;
+physical_register i_physical_register_LS(
                                       .raddr0(p_rs_lss),
                                       .raddr1(p_rt_lss),
                                       .we(RegDest_compl),
                                       .waddr(p_rd_compl),
                                       .din(result_compl),
                                       .clk(clk),
-                                      .dout0(rs_data_IS_EX),
-                                      .dout1(rt_data_IS_EX));
+                                      .dout0(rs_data_IS_EX_ls),
+                                      .dout1(rt_data_IS_EX_ls));
 
-/////////////IS_EX pipeline register,
+/////////////IS_EX pipeline register, for LS/ST/////////////////////////////////////
 ///*****************WILL CONSIDER STALL HERE
-reg [5:0] p_rd_IS_EX;
-reg [15:0] immed_IS_EX;
-reg [3:0] rob_num_IS_EX;
-reg RegDest_IS_EX;
-reg mem_ren_IS_EX;
-reg mem_wen_IS_EX;
-reg issue_IS_EX;
+reg [5:0] p_rd_IS_EX_ls;
+reg [15:0] immed_IS_EX_ls;
+reg [3:0] rob_num_IS_EX_ls;
+reg RegDest_IS_EX_ls;
+reg mem_ren_IS_EX_ls;
+reg mem_wen_IS_EX_ls;
+reg issue_IS_EX_ls;
 
 
 always @(posedge clk or negedge rst) begin
     if (!rst) begin
-        {p_rd_IS_EX, immed_IS_EX, rob_num_IS_EX} <= 0;
-        {RegDest_IS_EX, mem_ren_IS_EX, mem_wen_IS_EX, issue_IS_EX} <= 0;
+        {p_rd_IS_EX_ls, immed_IS_EX_ls, rob_num_IS_EX_ls} <= 0;
+        {RegDest_IS_EX_ls, mem_ren_IS_EX_ls, mem_wen_IS_EX_ls, issue_IS_EX_ls} <= 0;
     end
-    else if (recover && (rob_num_IS_EX == flush_rob_num)) begin
-        {RegDest_IS_EX, mem_ren_IS_EX, mem_wen_IS_EX, issue_IS_EX} <= 0;
+    else if (recover && (rob_num_IS_EX_ls == flush_rob_num)) begin
+        {RegDest_IS_EX_ls, mem_ren_IS_EX_ls, mem_wen_IS_EX_ls, issue_IS_EX_ls} <= 0;
     end
     else begin
-        {p_rd_IS_EX, immed_IS_EX, rob_num_IS_EX} <= {p_rd_lss, immed_lss, rob_num_lss};
-        {RegDest_IS_EX, mem_ren_IS_EX, mem_wen_IS_EX, issue_IS_EX} <= {RegDest_lss, mem_ren_lss, mem_wen_lss, issue_lss};
+        {p_rd_IS_EX_ls, immed_IS_EX_ls, rob_num_IS_EX_ls} <= {p_rd_lss, immed_lss, rob_num_lss};
+        {RegDest_IS_EX_ls, mem_ren_IS_EX_ls, mem_wen_IS_EX_ls, issue_IS_EX_ls} <= {RegDest_lss, mem_ren_lss, mem_wen_lss, issue_lss};
     end
 end
 
@@ -295,14 +410,14 @@ wire ls_RegDest_CMP;
 store_queue i_store_queue(
                           .clk(clk),
                           .rst(rst),
-                          .issue(issue_IS_EX),
-                          .mem_wen(mem_wen_IS_EX),
-                          .mem_ren(mem_ren_IS_EX),
-                          .rs_data(rs_data_IS_EX),
-                          .rt_data(rt_data_IS_EX),
-                          .immed(immed_IS_EX),
-                          .rob_in(rob_num_IS_EX),
-                          .p_rd_in(p_rd_IS_EX),
+                          .issue(issue_IS_EX_ls),
+                          .mem_wen(mem_wen_IS_EX_ls),
+                          .mem_ren(mem_ren_IS_EX_ls),
+                          .rs_data(rs_data_IS_EX_ls),
+                          .rt_data(rt_data_IS_EX_ls),
+                          .immed(immed_IS_EX_ls),
+                          .rob_in(rob_num_IS_EX_ls),
+                          .p_rd_in(p_rd_IS_EX_ls),
                           .stall_hazard(hazard_stall_store_queue),
                           .retire_ST(retire_ST),
                           .retire_rob(retire_rob),

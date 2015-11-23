@@ -93,7 +93,7 @@ wire [3:0] rs_match_array, rt_match_array;
 //comparator array for flushing instruction
 genvar j;
 generate 
-for (j = 0; j < 4; j = j + 1) begin
+for (j = 0; j < 4; j = j + 1) begin : combinational
     assign rob_match_array[j] = (ls_station[j][39:36] == rob_num_rec) && lss_valid[j];
     assign rs_match_array[j] = (ls_station[j][29:24] == p_rd_compl) && lss_valid[j] && RegDest_compl;
     assign rt_match_array[j] = (ls_station[j][22:17] == p_rd_compl) && lss_valid[j] && RegDest_compl;
@@ -104,7 +104,7 @@ endgenerate
 ////////////////////////////////seqnential logic///////////////////////////////////
 genvar i;
 generate 
-    for (i = 0; i < 4; i = i + 1) begin
+    for (i = 0; i < 4; i = i + 1) begin : sequential
         always @(posedge clk or negedge rst) begin
             if (!rst) begin
                 ls_station[i] <= {42{1'b0}};

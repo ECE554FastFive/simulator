@@ -96,7 +96,7 @@ assign address_in = rs_data + {{16{immed[15]}}, immed};
 /////////////////combinational logic, comparators////////////////////////////
 wire [3:0] rt_rob_match_array, rec_rob_match_array, addr_match_array;
 genvar i;
-generate for(i = 0; i < 4; i = i + 1) begin
+generate for(i = 0; i < 4; i = i + 1) begin : combinational
     //for retire stage, set the ready bit 
     assign rt_rob_match_array[i] = (rob_queue[i] == retire_rob) && retire_ST && control_queue[i][0] && control_queue[i][1];
     //for recovery, flush the entry if rob number matches, and recover is high
@@ -108,7 +108,7 @@ endgenerate
 
 ////////////////////////sequential logic/////////////////////////////////////////
 genvar j;
-generate for (j = 0; j < 4; j = j + 1) begin
+generate for (j = 0; j < 4; j = j + 1) begin : sequential
     always @(posedge clk or negedge rst) begin
         if (!rst) begin
             value_queue[j] <= 0;
@@ -129,7 +129,7 @@ generate for (j = 0; j < 4; j = j + 1) begin
                 control_queue[j][1] <= 1'b0;   //only need to flush mem_wen, thus it cannot write to D-Mem, and cannot
             end                                //match with incoming load, retired rob
             if (read && head[j]) begin
-                control_queue[j][0] = 1'b0;          //set to invalid
+                control_queue[j][0] <= 1'b0;          //set to invalid
             end
         end
     end

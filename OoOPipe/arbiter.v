@@ -16,7 +16,7 @@ module abiter (
 	assign stall_ls   = is_alu && is_ls && ~int_reg;
 
 	always @(posedge clk)
-	if (rst)
+	if (!rst)
 		int_reg <= 0;
 	else 
 		if (is_alu && is_ls)

@@ -10,7 +10,7 @@ module ALU(
 localparam ADD = 4'h0, SUB = 4'h1, LUI = 4'h2, MOV = 4'h3;
 localparam AND = 4'h4, SLL = 4'h5, SRA = 4'h6, SRL = 4'h7; 
 localparam NOT = 4'h8, OR = 4'h9, XOR = 4'ha, ADDB = 4'hb;
-localparam ADDBI = 4'hc, SUBB = 4'hd, SUBBI = 4'he, LDC = 4'hf; //LDC stands for load counters
+localparam ADDBI = 4'hc, SUBB = 4'hd, SUBBI = 4'he, LLDC = 4'hf; //LDC stands for load counters
 
 wire [3:0] alu_ctrl = {alu_ctrl3, alu_ctrl2, alu_ctrl1, alu_ctrl0};
 
@@ -42,7 +42,7 @@ always @(alu_ctrl or in0 or in1) begin
         ADDBI: alu_out = {addb3, addb2, addb1, addb0};
         SUBB: alu_out = {subb3, subb2, subb1, subb0};
         SUBBI: alu_out = {subb3, subb2, subb1, subb0};
-        LDC: alu_out = {16'h0000, perf_cnt};
+        LLDC: alu_out = {16'h0000, perf_cnt};
     endcase
 end
 

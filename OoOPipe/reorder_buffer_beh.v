@@ -9,7 +9,7 @@
   //after recover becomes low, the changeFlow_out becomes 1 for 1 cycle, thus PC changes to correct PC, changeFlow also flush the IF/DP
    //when recover is low, other parts are allowed to go (MT,RS,FL will not allocate since the IF/DP is NOP, however some instructions
    //might still in IS/EX or EX/CMP, let them go
-module reorder_buffer(
+module reorder_buffer_beh(
     input rst, clk,
     input isDispatch, //serve as the write enable of FIFO
     input isSW,   //
@@ -83,6 +83,7 @@ always @(posedge clk or negedge rst) begin
     else if (write) begin
         tail <= tail + 1;
         rob[tail] <= {RegDest, isSW, rd_DP, PR_old_DP, PR_new_DP};
+        complete_array[tail] <= 0;   //reset complete bit when allocate a new entry
     end
 end
 
@@ -109,18 +110,12 @@ assign empty = ~(|status_cnt);
 
 reg [3:0] branch_rob;
 reg store_jb_addr;
-genvar i;
-generate for (i = 0; i < 16; i = i + 1) begin : complete_part
-    always @(posedge clk or negedge rst) begin
-        if (!rst) 
-            complete_array[i] <= 0;
-        else if (rob_number == i && complete) 
-            complete_array[i] <= 1'b1;    //ROB# cannot equal to tail
-        else if (tail == i && write)
-            complete_array[i] <= 1'b0;   //reset complete bit when allocate a new entry
-    end
+always @(posedge clk or negedge rst) begin
+    if (!rst) 
+        complete_array <= 0;
+    else if (complete) 
+        complete_array[rob_number] <= 1'b1;    //ROB# cannot equal to tail, will this synthesize?
 end
-endgenerate
 
 //changeFlow address and ROB number for branch/jump
 always @(posedge clk or negedge rst) begin

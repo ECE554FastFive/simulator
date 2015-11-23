@@ -14,7 +14,7 @@ module inst_mem(clk, addr, dout);
 
 	
 	initial begin
-		$readmemh("test.txt", mem);
+		$readmemh("test_alu02.txt", mem);
 	end
 	
 	always@(posedge clk) begin

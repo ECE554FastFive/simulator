@@ -6,7 +6,8 @@ module EX_stage_OoO(
     //from reservation station, data signals
     input [31:0] rs_data, rt_data,
     input [31:0] pc_1,
-    input [31:0] instr,
+    input [15:0] immed_value,
+    input [5:0] opcode,
     //from reservation station, control signals
     ////*****writeRd: which is for write whether rd or rt, moved to ID/DP stage, before indexing Map Table
     input ldic, isSignEx, immed,
@@ -23,9 +24,9 @@ wire [15:0] perf_cnt;
 wire [4:0] shamt;
 
 assign in0 = rs_data;
-assign in1 = immed ? (isSignEx ? {{16{instr[15]}}, instr[15:0]} : {16'h0000, instr[15:0]}) : rt_data;
+assign in1 = immed ? (isSignEx ? {{16{immed_value[15]}}, immed_value[15:0]} : {16'h0000, immed_value[15:0]}) : rt_data;
 assign perf_cnt = ldic ? instr_cnt : cycle_cnt;
-assign shamt = instr[10:6];
+assign shamt = immed_value[10:6];
 
 //ALU
 ALU i_ALU(
@@ -46,9 +47,9 @@ ALU i_ALU(
 wire isBranch;          //if branch taken, set to 1
 wire [31:0] branch_addr;
 //branch resolver
-branch_gen ibranch_gen(.isBranch(isBranch), .opcode(instr[31:26]), .flag_n(flag_n), .flag_z(flag_z), .flag_v(flag_v));
-assign branch_addr = pc_1 + {{16{instr[15]}}, instr[15:0]};
+branch_gen ibranch_gen(.isBranch(isBranch), .opcode(opcode), .flag_n(flag_n), .flag_z(flag_z), .flag_v(flag_v));
+assign branch_addr = pc_1 + {{16{immed_value[15]}}, immed_value[15:0]};
 assign changeFlow = isBranch | isJump;                                 //first assume branch untaken
-assign jb_addr = isBranch ? branch_addr : (isJR ? rs_data : {pc_1[31:26], instr[25:0]});
+assign jb_addr = isBranch ? branch_addr : (isJR ? rs_data : {pc_1[31:16], immed_value});
 
 endmodule
