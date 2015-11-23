@@ -13,11 +13,13 @@ module EX_stage_OoO(
     input ldic, isSignEx, immed,
     input alu_ctrl0, alu_ctrl1, alu_ctrl2, alu_ctrl3,
     input isJump, isJR,
-    output [31:0] alu_out,     //to CDB arbiter
+    input link,
+    output [31:0] alu_result,     //to CDB arbiter
     output changeFlow,
     output [31:0] jb_addr     //changeFlow and jb_addr, to complete stage, then to ROB
 );
 
+wire [31:0] alu_out;
 wire flag_z, flag_n, flag_v;
 wire [31:0] in0, in1;
 wire [15:0] perf_cnt;
@@ -27,6 +29,7 @@ assign in0 = rs_data;
 assign in1 = immed ? (isSignEx ? {{16{immed_value[15]}}, immed_value[15:0]} : {16'h0000, immed_value[15:0]}) : rt_data;
 assign perf_cnt = ldic ? instr_cnt : cycle_cnt;
 assign shamt = immed_value[10:6];
+assign alu_result = link ? pc_1 : alu_out;
 
 //ALU
 ALU i_ALU(

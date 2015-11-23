@@ -202,7 +202,7 @@ reorder_buffer_beh i_reorder_buffer(
 
 ///////////temporary wires/////////////////
 wire hazard_stall_lss; assign hazard_stall_lss = 0;
-
+wire stall_issue_lss = 0;
 ///////////////////////////////////////////
 
 wire [5:0] p_rs_lss, p_rt_lss, p_rd_lss;
@@ -227,6 +227,7 @@ ls_station i_lss(       .clk(clk),
                         .mem_wen(mem_wen),     //from decoder   ********
                         .immed(instr_IF_DP[15:0]),         //from decode
                         .stall_hazard(hazard_stall_lss),
+                        .stall_issue(stall_issue_lss),
                         .recover(recover),                     //from ROB
                         .rob_num_rec(flush_rob_num),           //from ROB
                         .p_rd_compl(p_rd_compl),             
@@ -248,7 +249,7 @@ wire rs_alu_full;
 ///////////////temporary signals////////////
 wire stall_hazard_rs_alu;
 assign stall_hazard_rs_alu = 0;
-wire stall_issue = 0;
+wire stall_issue_alu = 0;
 ////////////////////////////////////////////
 
 wire issue_en_alu;
@@ -269,6 +270,7 @@ wire [31:0] PC_out_rs_alu;
 wire [15:0] imm_rs_alu;
 //go through EX (IS/EX pipeline reg)stage, but used in COMPL stage
 wire [3:0] EX_rob_alu;
+wire [16:0] EX_ctrl_out;
 wire [5:0] p_rd_rs_alu;
 //to physical register
 wire [5:0] p_rs_out_alu, p_rt_out_alu;
@@ -291,7 +293,7 @@ rs_alu i_rs_alu(
                   .recover(recover),
                   .rec_rob_entry(flush_rob_num),
                   .stall_hazard(stall_hazard_rs_alu),
-                  .stall_issue(stall_issue),
+                  .stall_issue(stall_issue_alu),
                   .bus_en(complete && RegDest_compl),   //set ready bit only if RegDest is 1
                   .tag(p_rd_compl),
                   .issue_en(issue_en_alu),
@@ -323,12 +325,73 @@ physical_register i_physical_register_ALU(
                                       .dout1(rt_data_IS_EX_alu));
 
 //////////////////////////////IS/EX pipeline register for ALU instructions///////////////
-//pc_1, immed_value, ldic, isSignedEx, immed, alu_ctrls, isJump, isJR, 
+
+//control signals
+reg ldic_IS_EX, isSignedEx_IS_EX, immed_IS_EX_alu;
+reg alu_ctrl0_IS_EX, alu_ctrl1_IS_EX, alu_ctrl2_IS_EX, alu_ctrl3_IS_EX;
+reg isJump_IS_EX, isJR_IS_EX;
+reg link_IS_EX, RegDest_IS_EX_alu;
+///data and address signals
+reg [31:0] pc_1_IS_EX;
+reg [15:0] immed_value_IS_EX_alu;
+reg [3:0] rob_IS_EX_alu;
+reg [5:0] p_rd_IS_EX_alu;
+reg [5:0] opcode_IS_EX;
+
+reg issue_en_IS_EX_alu;
+
+//[5:0] opcode, [6] ldic, [7] isSignEx, [8] isImmed, [9] alu_ctrl0, [10] alu_ctrl1, [11] alu_ctrl2, [12] alu_ctrl3
+//[13] isJump, [14] isJR, [15] RegDest, [16] link
+/////////////////////////////
+///////control signals
+always @(posedge clk or negedge rst) begin
+  if (!rst) begin
+    {ldic_IS_EX, isSignedEx_IS_EX, immed_IS_EX_alu, alu_ctrl0_IS_EX, alu_ctrl1_IS_EX, alu_ctrl2_IS_EX, alu_ctrl3_IS_EX} <= 0;
+    {isJump_IS_EX, isJR_IS_EX} <= 0;
+    {link_IS_EX, RegDest_IS_EX_alu} <= 0;
+  end
+  else if ((recover && (rob_IS_EX_alu == flush_rob_num)) || !issue_en_alu) begin    //flush this pipeline register
+    {ldic_IS_EX, isSignedEx_IS_EX, immed_IS_EX_alu, alu_ctrl0_IS_EX, alu_ctrl1_IS_EX, alu_ctrl2_IS_EX, alu_ctrl3_IS_EX} <= 0;
+    {isJump_IS_EX, isJR_IS_EX} <= 0;
+    {link_IS_EX, RegDest_IS_EX_alu} <= 0;
+    issue_en_IS_EX_alu <= 0;
+  end
+  else begin
+    {ldic_IS_EX, isSignedEx_IS_EX, immed_IS_EX_alu, alu_ctrl0_IS_EX, alu_ctrl1_IS_EX, alu_ctrl2_IS_EX, alu_ctrl3_IS_EX} 
+                 <= {EX_ctrl_out[6], EX_ctrl_out[7], EX_ctrl_out[8], EX_ctrl_out[9], EX_ctrl_out[10], EX_ctrl_out[11], EX_ctrl_out[12]};
+    {isJump_IS_EX, isJR_IS_EX} <= {EX_ctrl_out[13], EX_ctrl_out[14]};
+    {link_IS_EX, RegDest_IS_EX_alu} <= {EX_ctrl_out[16], EX_ctrl_out[15]};
+    issue_en_IS_EX_alu <= issue_en_alu;
+  end
+end
+
+//data and address pipeline register
+always @(posedge clk or negedge rst) begin
+  if (!rst) begin
+    pc_1_IS_EX <= 0;
+    immed_value_IS_EX_alu <= 0;
+    rob_IS_EX_alu <= 0;
+    p_rd_IS_EX_alu <= 0;
+    opcode_IS_EX <= 0;
+  end
+  else begin
+    pc_1_IS_EX <= PC_out_rs_alu;
+    immed_value_IS_EX_alu <= imm_rs_alu;
+    rob_IS_EX_alu <= EX_rob_alu;
+    p_rd_IS_EX_alu <= p_rd_rs_alu;
+    opcode_IS_EX <= EX_ctrl_out[5:0];
+  end
+end
+
 ////temporary wires//////////
 wire [15:0] instr_cnt, cycle_cnt;
 assign instr_cnt = 16'h0000;
 assign cycle_cnt = 16'h0000;
 /////////////////////////////
+
+wire [31:0] alu_result_EX;
+wire [31:0] jb_addr_EX;
+wire changeFlow_EX;
 
 /////////////////////////////////functional units////////////////////////////////////////
 EX_stage_OoO i_EX_stage_OoO(
@@ -336,22 +399,25 @@ EX_stage_OoO i_EX_stage_OoO(
                             .cycle_cnt(cycle_cnt),
                             .rs_data(rs_data_IS_EX_alu),
                             .rt_data(rt_data_IS_EX_alu),
-                            .pc_1(pc_1),
-                            .immed_value(immed_value),
-                            .opcode(opcode),
-                            .ldic(ldic),
-                            .isSignEx(isSignEx),
-                            .immed(immed),
-                            .alu_ctrl0(alu_ctrl0),
-                            .alu_ctrl1(alu_ctrl1),
-                            .alu_ctrl2(alu_ctrl2),
-                            .alu_ctrl3(alu_ctrl3),
-                            .isJump(isJump),
-                            .isJR(isJR),
-                            .alu_out(alu_out),
-                            .changeFlow(changeFlow),
-                            .jb_addr(jb_addr));
+                            .pc_1(pc_1_IS_EX),
+                            .immed_value(immed_value_IS_EX_alu),
+                            .opcode(opcode_IS_EX),
+                            .ldic(ldic_IS_EX),
+                            .isSignEx(isSignedEx_IS_EX),
+                            .immed(immed_IS_EX_alu),
+                            .alu_ctrl0(alu_ctrl0_IS_EX),
+                            .alu_ctrl1(alu_ctrl1_IS_EX),
+                            .alu_ctrl2(alu_ctrl2_IS_EX),
+                            .alu_ctrl3(alu_ctrl3_IS_EX),
+                            .isJump(isJump_IS_EX),
+                            .isJR(isJR_IS_EX),
+                            .link(link_IS_EX),
+                            .alu_result(alu_result_EX),
+                            .changeFlow(changeFlow_EX),
+                            .jb_addr(jb_addr_EX));
 
+wire [5:0] p_rd_EX_alu;
+assign p_rd_EX_alu = link ? 6'h19 : p_rd_IS_EX_alu;    //don't use $r31 in assembly code
 
 /////////////////////////////////physical register for MEM////////////////////////////
 
@@ -369,7 +435,7 @@ physical_register i_physical_register_LS(
                                       .dout1(rt_data_IS_EX_ls));
 
 /////////////IS_EX pipeline register, for LS/ST/////////////////////////////////////
-///*****************WILL CONSIDER STALL HERE
+///*****************WILL CONSIDER STALL HERE later
 reg [5:0] p_rd_IS_EX_ls;
 reg [15:0] immed_IS_EX_ls;
 reg [3:0] rob_num_IS_EX_ls;
@@ -384,7 +450,7 @@ always @(posedge clk or negedge rst) begin
         {p_rd_IS_EX_ls, immed_IS_EX_ls, rob_num_IS_EX_ls} <= 0;
         {RegDest_IS_EX_ls, mem_ren_IS_EX_ls, mem_wen_IS_EX_ls, issue_IS_EX_ls} <= 0;
     end
-    else if (recover && (rob_num_IS_EX_ls == flush_rob_num)) begin
+    else if ((recover && (rob_num_IS_EX_ls == flush_rob_num)) || (!issue_lss)) begin
         {RegDest_IS_EX_ls, mem_ren_IS_EX_ls, mem_wen_IS_EX_ls, issue_IS_EX_ls} <= 0;
     end
     else begin
@@ -400,7 +466,7 @@ wire hazard_stall_store_queue;  assign hazard_stall_store_queue = 0;
 ///////////////////////////////////
 
 wire sq_full;
-wire isLS_CMP;
+wire isLS_CMP;              //************************need to check later***********************//
 wire [31:0] load_result_CMP;
 wire [5:0] ls_p_rd_CMP;
 wire [3:0] ls_rob_CMP;

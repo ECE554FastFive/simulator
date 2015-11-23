@@ -6,7 +6,7 @@ module rs_alu(
 	//To IS/EX pipe
 	output [31:0] PC_out,
 	output [3:0] rob_id_out,	
-	output [7:0] EX_ctrl_out, //To IS/EX pipe
+	output [16:0] EX_ctrl_out, //To IS/EX pipe
 	output [5:0] p_rs_out,  //To PRF: Read Operand 1
 	output [5:0] p_rt_out,  //To PRF: Read Operand 2
 	output [15:0] imm_bits_out,
@@ -15,7 +15,7 @@ module rs_alu(
 	
 	input [3:0] num_rob_entry, //From Decode stage: ROB tail 
 	input [31:0] PC_in, 
-	input [7:0] EX_ctrl_in, //From Decode
+	input [16:0] EX_ctrl_in, //From Decode
 	//input ALU_busy,	//From EX(ALU)
 	input [5:0] p_rs_in, 	//From Map Table	
 	input [5:0] p_rt_in, 	//From Map Table
@@ -54,7 +54,7 @@ module rs_alu(
 	reg [5:0] prf_rt[0:8]; //6-bit PRF addresses
 	reg [5:0] prf_rd[0:8]; //6-bit PRF addresses	
 	reg [15:0] imm_bits[0:8]; //immediate bits
-	reg [7:0] ex_ctrl[0:8]; 	
+	reg [16:0] ex_ctrl[0:8]; 	
 	reg [31:0] PC[0:8];  //Program Counter	
 	reg prf_rs_rdy[0:8]; //Ready bit: prf_rs
 	reg prf_rt_rdy[0:8]; //Ready bit: prf_rt
@@ -289,22 +289,22 @@ module rs_alu(
 ///////////////////////
 
 	always@( posedge clk or negedge rst) begin
-			ex_ctrl[8] <= 8'd0; //9th and unused
+			ex_ctrl[8] <= 17'd0; //9th and unused
 	
 	   	for( i=0; i<8; i=i+1) begin		
 		    if( ~rst) begin
-			ex_ctrl[i] <= 8'd0;
+			ex_ctrl[i] <= 17'd0;
 		    end else begin	
 			if( recover == 1'b1) begin
 				if( i == flush_index || i>flush_index) begin
 					if( i < alloc_index-1) ex_ctrl[i] <= ex_ctrl[i+1];
-					else ex_ctrl[i] <= 8'd0;
+					else ex_ctrl[i] <= 17'd0;
 				end else ex_ctrl[i] <= ex_ctrl[i];
 			end 	
 			else if( ((i == issue_index || i > issue_index) && i < alloc_index) && issue_en == 1'b1) begin
 				if( i == alloc_index-1 || i==7) //Last entry of the Array
 					if( alloc_RS_en) ex_ctrl[i] <= EX_ctrl_in;
-					else ex_ctrl[i] <= 8'd0;
+					else ex_ctrl[i] <= 17'd0;
 				else
 					ex_ctrl[i] <= ex_ctrl[i+1];
 			end else if( i == alloc_index_3b && alloc_index[3] == 1'b0 && alloc_RS_en == 1'b1 && issue_en == 1'b0)
@@ -409,8 +409,7 @@ module rs_alu(
 						prf_rs_rdy[i] <= prf_rs_rdy[i];	//Do nothing		
 				end else begin
 					if( i==alloc_index && alloc_RS_en == 1'b1)
-						if( tag == p_rs_in) prf_rs_rdy[i] <= 1'b1;
-						else prf_rs_rdy[i] <= p_rs_rdy_in | (~rs_read); //Allocation
+						prf_rs_rdy[i] <= p_rs_rdy_in | (~rs_read); //Allocation
 					else
 						prf_rs_rdy[i] <= prf_rs_rdy[i];	//Do nothing							
 				end
@@ -482,8 +481,7 @@ module rs_alu(
 						prf_rt_rdy[i] <= prf_rt_rdy[i];	//Do nothing		
 				end else begin
 					if( i==alloc_index && alloc_RS_en == 1'b1)
-						if( tag == p_rt_in) prf_rt_rdy[i] <= 1'b1;
-						else prf_rt_rdy[i] <= p_rt_rdy_in | (~rt_read); //Allocation
+						prf_rt_rdy[i] <= p_rt_rdy_in | (~rt_read); //Allocation
 					else
 						prf_rt_rdy[i] <= prf_rt_rdy[i];	//Do nothing							
 				end

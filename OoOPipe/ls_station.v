@@ -19,6 +19,7 @@ module ls_station(
      input [15:0] immed,
 
      input stall_hazard,
+     input stall_issue,
 
      //from branch/jump recovery
      input recover,
@@ -53,7 +54,7 @@ reg [1:0] head_addr;
 wire read, write;
 wire head_rdy;    //the head is ready to be issued
 assign write = isDispatch && !stall_hazard && !lss_full && !recover && (mem_ren || mem_wen);
-assign read = !stall_hazard && !recover && head_rdy && lss_valid[head_addr];   //stall_hazard from outside, asserted if other blocks have hazard
+assign read = !stall_hazard && !recover && head_rdy && lss_valid[head_addr] && !stall_issue;   //stall_hazard from outside, asserted if other blocks have hazard
 
 //counter recording full or empty status
 always @(posedge clk or negedge rst) begin
