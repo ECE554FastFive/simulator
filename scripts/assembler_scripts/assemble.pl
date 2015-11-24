@@ -89,7 +89,7 @@ if((lc $file_ext) eq 'coe') {
 #open data out file
 open(my $fh_data, '>', $data_filename) or die "Could not open file '$data_filename' $!";
 if($coe_flag){
-	$data_string .= 'memory_initialization_radix='.RADIX."\n";
+	$data_string .= 'memory_initialization_radix='.RADIX.";\n";
 	$data_string .=  "memory_initialization_vector=\n"
 }
 
@@ -236,7 +236,7 @@ close $fh_data;
 #get file handle
 open(my $fh, '>', $instr_filename) or die "Could not open file '$instr_filename' $!";
 if($coe_flag){
-	print $fh 'memory_initialization_radix='.RADIX."\n";
+	print $fh 'memory_initialization_radix='.RADIX.";\n";
 	print $fh "memory_initialization_vector=\n"
 }
 $instrcount = 0;		#reset instruction count
