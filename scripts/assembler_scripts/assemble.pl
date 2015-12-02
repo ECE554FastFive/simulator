@@ -5,6 +5,8 @@ use warnings;
 ###		ECE 554 Fast Five Assembler	
 ###		Author: Henry Chen			
 ###		Recent Edits: 
+###		(12/1)		Multi-program assembly functionality 
+###					(use directive ".program" at top of each program)
 ###		(11/10)		COE output format 
 ###		(11/3)		check and die for r0 destination
 ###		(10/29)		pseudo instruction la
@@ -58,16 +60,19 @@ my %i_ops = (
 #variables
 my %symbol_table = ();
 my %data_table = ();
-my $instrcount = 0;
-my $instr_string = ""; 
-my $datacount = 0;
-my $data_string = "";
-my $data_section = 0;
+my $instrcount = 0;			#count for instruction
+my $instr_string = ""; 		#string for instruciton
+my $datacount = 0;			#count for data
+my $data_string = "";		#string for data
+my $data_section = 0;		#boolean for data or text section
+my $program_number = 0;		#which program we are on 0-4;
+my @program_lengths = (0,0,0,0,0); #length of each program
 my @temp_array = @ARGV;		#save input arg in temp array
 
 #process input args as <input file names><instruction out filename><data out filename>
 my $argc = scalar @ARGV;
 die "Usage: assemble.pl <input file names><instruction out filename><data out filename>" if $argc < 3;
+die "Max number of input programs (5) exceeded!" if $argc > 7;
 my $instr_filename = $ARGV[$argc-2];
 my $data_filename = $ARGV[$argc-1];
 splice @temp_array, $argc-2, 2;		#extract last two filenames
@@ -77,7 +82,10 @@ splice @temp_array, $argc-2, 2;		#extract last two filenames
 use constant ADDR_PER_INSTR => 1;	#number of address count per instruction
 use constant ADDR_PER_DATA => 1;	#number of address count per data
 use constant RADIX => 16; 			#COE file radix (16==hexadecimal)
+use constant INITIAL_PC => 128;		#initial value to load to PC
+use constant PROGRAM_LENGTH => 128; #number of instr mem each program will take up
 
+$instrcount = INITIAL_PC;			#set to initial pc value
 my $coe_flag = 0;
 my $file_ext = (split(/\./, $instr_filename))[1] ;		#check output file formats
 die "Error: output file formats do not match" if ((split(/\./, $data_filename))[1] ne $file_ext);
@@ -108,7 +116,7 @@ while(<>){		# opens and reads input arguments as files line by line
 			$type =~ s/\s.*//;	#remove anything after first space
 			my $value = $temp;
 			$value =~ s/\.\S*\s//;	#remove things before first space
-			$data_table{ $tokins[0] } = $datacount;	#add label to data table
+			$data_table{ $tokins[0].$program_number } = $datacount;	#add label to data table
 			if ($type eq '.word'){
 				my @values = split(",", $value);
 				foreach my $val (@values){
@@ -194,14 +202,21 @@ while(<>){		# opens and reads input arguments as files line by line
 	$instr = lc $instr;			#opcodes to lowercase
 	if($_ =~ m/\w+:/){		#match to any labels in the format (could be on same line as instruction) - LABEL:
 		my @tokins = split(/:/, $_); # split by : (instruction could be on same line as label)
-		$symbol_table{ $tokins[0] } = $instrcount;
+		$symbol_table{ $tokins[0].$program_number } = $instrcount;
 		if((scalar @tokins > 1) && $tokins[1] =~ m/.+\s.+/) {		#if it has intruction on same line increase the instrction count
 			$instrcount += ADDR_PER_INSTR;
 			$instrcount += ADDR_PER_INSTR if ($tokins[1] =~ m/la\s/) ;  #pseudo instruction (la) == 2 instructions
+			$program_lengths[$program_number-1]++;
+			$program_lengths[$program_number-1]++ if($instr eq 'la');
 		}
 	}
 	elsif($_ =~ m/^\..*/ ) {	#match with any directive (must be on its own line) in the format -  .text
-		if ($_ eq '.data') {
+		#directive ".program" marks the start of new program, reset instruction count
+		if($_ eq ".program") {	
+			$instrcount = INITIAL_PC + PROGRAM_LENGTH * $program_number;
+			$program_number++;
+		}
+		elsif ($_ eq '.data') {
 			$data_section = 1; #change to data section
 		}
 		else {
@@ -211,6 +226,8 @@ while(<>){		# opens and reads input arguments as files line by line
 	elsif($_ =~ m/.+/) {	#leftover must be instruction (must have space in middle)
 		$instrcount += ADDR_PER_INSTR ;
 		$instrcount += ADDR_PER_INSTR if ($instr eq 'la') ;  #pseudo instruction (la) == 2 instructions
+		$program_lengths[$program_number-1]++;
+		$program_lengths[$program_number-1]++ if($instr eq 'la');
 	}
 }
 print "pass one complete\n";
@@ -218,6 +235,11 @@ print "pass one complete\n";
 #debug: print symbol table
 foreach my $key ( keys %symbol_table) {
     print( "$key is at instr addr: $symbol_table{$key}\n" );
+}
+my $i = 0;
+foreach my $len (@program_lengths) {
+	$i++;
+	print("length of program $i: $len\n")	
 }
 printf("number of instructions %d\n", $instrcount/ADDR_PER_INSTR);
 foreach my $key ( keys %data_table) {
@@ -228,7 +250,7 @@ printf("number of words of data: %d\n", $datacount/ADDR_PER_DATA);
 if($coe_flag){ 
 	$data_string =~ s/,\n$/;\n/; 
 }
-print $fh_data $data_string;
+print $fh_data $data_string;	#write to file
 
 close $fh_data;
 
@@ -237,16 +259,33 @@ close $fh_data;
 open(my $fh, '>', $instr_filename) or die "Could not open file '$instr_filename' $!";
 if($coe_flag){
 	print $fh 'memory_initialization_radix='.RADIX.";\n";
-	print $fh "memory_initialization_vector=\n"
+	print $fh "memory_initialization_vector=\n";
 }
-$instrcount = 0;		#reset instruction count
+$program_number = 0;	#reset program number
+$instrcount = INITIAL_PC;#reset instruction count
 @ARGV = @temp_array;	#restore argv to temp array
 my $line = "";			#line to contain instruction
 while(<>){				# opens and reads input arguments as files line by line
 	$_ =~ s/#.*//; 		# replace comments
 	$_ =~ s/^\s+|\s+$//g;	#trim line
 	if($_ =~ m/^\..*/ ) {	#match with any directive (on its own line) in the format -  .text
-		if ($_ eq '.data') {
+		if($_ eq ".program") {	
+			if($coe_flag) {
+				my $num_nops = ($program_number==0) ? INITIAL_PC - 1 : (PROGRAM_LENGTH-$program_lengths[$program_number-1]);
+				print "number of nops: ".$num_nops."\n";
+				if($program_number==0) {
+					$instr_string .= bin2hex($m_ops{'halt'}.('0' x 26)).",\n";	#need halt for very first line
+				}
+				for(my $k = 0; $k < $num_nops; $k++) {	#insert nop for coe files
+					$instr_string .= ('0' x 8).",\n";
+				}
+			}
+			#set instr to correct value
+			$instrcount = INITIAL_PC + PROGRAM_LENGTH * $program_number;
+			$program_number++;
+			next; 	#continue: don't parse directive as instr
+		}
+		elsif ($_ eq '.data') {
 			$data_section = 1; #change to data section
 		}
 		elsif ($_ eq '.text'){
@@ -287,7 +326,7 @@ while(<>){				# opens and reads input arguments as files line by line
 			$line = $m_ops{$instr};
 			my $rs = "";
 			if($instr eq 'j' || $instr eq 'jal') {
-				$line .= dec2bin($symbol_table{$rest}, 26);
+				$line .= dec2bin($symbol_table{$rest.$program_number}, 26);
 			}
 			elsif($instr eq 'jalr' || $instr eq 'jr') {
 				$rs = $ops[0]; $rs = to_reg($rs);
@@ -299,7 +338,7 @@ while(<>){				# opens and reads input arguments as files line by line
 			}
 			elsif($instr eq 'b') {
 				my $imm = $ops[0]; $imm =~ s/^\s+|\s+$//g;	
-				$line .= ('0' x 10).dec2bin(($symbol_table{$imm}-($instrcount+ADDR_PER_INSTR)), 16);
+				$line .= ('0' x 10).dec2bin(($symbol_table{$imm.$program_number}-($instrcount+ADDR_PER_INSTR)), 16);
 			}
 			elsif($instr eq 'lui'){
 				$rs = $ops[0]; $rs = to_reg($rs); check_zero($rs);
@@ -345,7 +384,7 @@ while(<>){				# opens and reads input arguments as files line by line
 			my $imm = "";	
 			if(substr($instr, 0, 1) eq 'b') {		#first letter is b (is a branch instr)
 				$imm = $ops[2]; $imm =~ s/^\s+|\s+$//g;
-				$line .= dec2bin($rs,5).dec2bin($rt,5).dec2bin(($symbol_table{$imm}-($instrcount+ADDR_PER_INSTR)), 16);
+				$line .= dec2bin($rs,5).dec2bin($rt,5).dec2bin(($symbol_table{$imm.$program_number}-($instrcount+ADDR_PER_INSTR)), 16);
 			}
 			elsif($instr eq 'lw' || $instr eq 'sw') {
 				check_zero($rs) if ($instr eq 'lw');	#only check if r0 if lw
@@ -354,8 +393,8 @@ while(<>){				# opens and reads input arguments as files line by line
 				$imm =~ s/^\s+|\s+$//g;			#trim
 				$imm = 0 if $imm eq "";			#set equal to 0 if no immediate value
 				if($rt !~ /\$/) {		#format: lw rs, imm(Label)
-					die "ERROR: invalid data label" if (!exists($data_table{$rt}));					
-					$imm = $data_table{$rt} + $imm;
+					die "ERROR: invalid data label" if (!exists($data_table{$rt.$program_number}));					
+					$imm = $data_table{$rt.$program_number} + $imm;
 					$rt = 0;
 					$line .= dec2bin($rt,5).dec2bin($rs,5).dec2bin($imm, 16);			
 				}
@@ -376,8 +415,8 @@ while(<>){				# opens and reads input arguments as files line by line
 			my @ops = split(',', $rest);
 			my $rs = $ops[0]; $rs = to_reg($rs); check_zero($rs);
 			my $imm = $ops[1]; $imm =~ s/^\s+|\s+$//g;
-			die "ERROR: invalid data label" if (!exists($data_table{$imm})); #check if label is valid	
-			my $addr = dec2bin($data_table{$imm}, 32);
+			die "ERROR: invalid data label" if (!exists($data_table{$imm.$program_number})); #check if label is valid	
+			my $addr = dec2bin($data_table{$imm.$program_number}, 32);
 			$line = '000100'.('0' x 5).dec2bin($rs, 5).substr($addr, 0, 16);	#lui rs, addr (upper 16)
 			my $line2 = '001101'.dec2bin($rs, 5).dec2bin($rs, 5).substr($addr, 16, 16);	#ori rs, rs, addr (lower 16)
 			if($coe_flag) {
@@ -409,7 +448,19 @@ while(<>){				# opens and reads input arguments as files line by line
 	}
 }
 if($coe_flag){ 
-	$instr_string =~ s/,\n$/;\n/; 
+	my $num_nops = (PROGRAM_LENGTH-$program_lengths[$program_number-1]);
+	print "number of nops: ".$num_nops."\n";
+	for(my $k = 0; $k < $num_nops; $k++) {	#insert nop for coe files
+		$instr_string .= ('0' x 8).",\n";
+	}
+	foreach my $len (@program_lengths){
+		if($len == 0){
+			for(my $k = 0; $k < PROGRAM_LENGTH; $k++) {	#insert nop for coe files
+				$instr_string .= ('0' x 8).",\n";
+			}
+		}
+	}
+	$instr_string =~ s/,\n$/;\n/;  #add semicolon at end of file
 }
 print $fh $instr_string;
 close $fh;
