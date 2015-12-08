@@ -88,7 +88,7 @@ use constant PROGRAM_LENGTH => 128; #number of instr mem each program will take 
 $instrcount = INITIAL_PC;			#set to initial pc value
 my $coe_flag = 0;
 my $file_ext = (split(/\./, $instr_filename))[1] ;		#check output file formats
-die "Error: output file formats do not match" if ((split(/\./, $data_filename))[1] ne $file_ext);
+print "Warning: output file formats do not match" if ((split(/\./, $data_filename))[1] ne $file_ext);
 print "Output format: $file_ext\n";
 if((lc $file_ext) eq 'coe') {
 	$coe_flag = 1;
