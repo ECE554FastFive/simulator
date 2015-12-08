@@ -207,7 +207,7 @@ while(<>){		# opens and reads input arguments as files line by line
 			$instrcount += ADDR_PER_INSTR;
 			$instrcount += ADDR_PER_INSTR if ($tokins[1] =~ m/la\s/) ;  #pseudo instruction (la) == 2 instructions
 			$program_lengths[$program_number-1]++;
-			$program_lengths[$program_number-1]++ if($instr eq 'la');
+			$program_lengths[$program_number-1]++ if ($tokins[1] =~ m/la\s/) ;
 		}
 	}
 	elsif($_ =~ m/^\..*/ ) {	#match with any directive (must be on its own line) in the format -  .text
