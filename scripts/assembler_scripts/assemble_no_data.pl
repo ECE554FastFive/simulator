@@ -209,6 +209,9 @@ while(<>){		# opens and reads input arguments as files line by line
 			if ($_ eq '.text'){
 				$data_section = 0; #change to text/code section
 			}
+			if ($_ eq '.data'){
+				$data_section = 1; #stay in data section
+			}
 		}
 		else {
 			die "ERROR: invalid data label/directive";
@@ -245,6 +248,9 @@ while(<>){		# opens and reads input arguments as files line by line
 		if($_ eq ".program") {	
 			$instrcount = INITIAL_PC + PROGRAM_LENGTH * $program_number;
 			$program_number++;
+		}
+		elsif ($_ eq '.text') {
+			$data_section = 0; #stay in text section
 		}
 		elsif ($_ eq '.data') {
 			$data_section = 1; #change to data section
